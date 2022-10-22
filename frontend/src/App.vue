@@ -19,4 +19,5 @@ export default {
 
 <style lang="sass">
 @import '@/styles/Global'
+@import '@/styles/Container'
 </style>
