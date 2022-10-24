@@ -7,7 +7,7 @@
         language="en-US"
         toolbarsExclude="[github, mermaid, katex]"
         codeTheme="atom"
-        :placeholder="note"
+        @input="handleInput"
     />
   </div>
 </template>
@@ -22,17 +22,18 @@ export default {
     MdEditor
   },
   data() {
-    return {
-      note: '',
-
-    }
+    return {}
   },
   computed: {
-    currentNoteState:  function () {
-      return this.$store.state.currentNote.content
+    currentNoteState: {
+      get(){
+        return this.$store.state.currentNote.content
+      },
+      set(value){
+        this.$store.commit('setNoteData', value);
+      }
     }
   }
-
 }
 </script>
 

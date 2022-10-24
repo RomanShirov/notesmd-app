@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar">
-    <cog-icon class="icon"></cog-icon>
+    <cog-icon class="icon" alt="Settings"></cog-icon>
   </div>
 </template>
 
