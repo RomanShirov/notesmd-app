@@ -2,15 +2,13 @@
   <div class="editor-container">
     <md-editor
         class="editor"
-        v-model="note"
+        v-model="currentNoteState"
         theme="dark"
         language="en-US"
-        toolbarsExclude="[github]"
+        toolbarsExclude="[github, mermaid, katex]"
         codeTheme="atom"
+        :placeholder="note"
     />
-<!--    <h1 class="title">{{note.title}}</h1>-->
-<!--    <p class="title" v-html="note.content"/>-->
-<!--    <p class="title">{{note}}</p>-->
   </div>
 </template>
 
@@ -25,14 +23,16 @@ export default {
   },
   data() {
     return {
-      note: "123"
+      note: '',
+
     }
   },
   computed: {
-    getNoteFromState: function (){
-      this.note = this.$store.state.currentNote.content
+    currentNoteState:  function () {
+      return this.$store.state.currentNote.content
     }
   }
+
 }
 </script>
 
