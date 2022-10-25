@@ -1,13 +1,16 @@
 <template>
-  <div class="app-container"></div>
+  <div class="app-container">
+    <ModeSelection/>
+  </div>
 </template>
 
 <script>
+import ModeSelection from "@/components/Entry/ModeSelection";
+
 export default {
-  name: "Entry"
+  name: "Entry",
+  components: {
+    ModeSelection,
+  }
 }
 </script>
-
-<style scoped>
-
-</style>
