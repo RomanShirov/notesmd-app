@@ -3,7 +3,7 @@
     <v-list-item
         @click="updateDisplayInfo(item)"
         class="element"
-        v-for="item in items"
+        v-for="item in userInfo.notes"
         :key="item.title"
         :title="item.title"
         :subtitle="item.content"
@@ -12,7 +12,6 @@
 </template>
 
 <script>
-import {marked} from "marked";
 
 export default {
   name: "NoteList",
@@ -22,42 +21,19 @@ export default {
         title: '',
         content: ''
       },
-      items: [
-        {
-          title: "1. Тест заметки",
-          content: "# Lorem ipsum dolor sit amet \n ## Consectetur adipisicing elit. \n ``Commodi, ratione debitis quis`` \n est labore voluptatibus! Eaque cupiditate minima"
-        },
-        {
-          title: "2. Title",
-          content: "Lorem ipsum dolor sit amet Consectetur adipisicing elit. Commodi, ratione debitis quis est labore voluptatibus! Eaque cupiditate minima"
-        },
-        {
-          title: "3. Title",
-          content: "Lorem ipsum dolor sit amet Consectetur adipisicing elit. Commodi, ratione debitis quis est labore voluptatibus! Eaque cupiditate minima"
-        },
-        {
-          title: "4. Title",
-          content: "Lorem ipsum dolor sit amet Consectetur adipisicing elit. Commodi, ratione debitis quis est labore voluptatibus! Eaque cupiditate minima"
-        },
-        {
-          title: "5. Title",
-          content: "Lorem ipsum dolor sit amet Consectetur adipisicing elit. Commodi, ratione debitis quis est labore voluptatibus! Eaque cupiditate minima"
-        },
-        {
-          title: "6. Title",
-          content: "Lorem ipsum dolor sit amet Consectetur adipisicing elit. Commodi, ratione debitis quis est labore voluptatibus! Eaque cupiditate minima"
-        },
-        {
-          title: "7. Title",
-          content: "Lorem ipsum dolor sit amet Consectetur adipisicing elit. Commodi, ratione debitis quis est labore voluptatibus! Eaque cupiditate minima"
-        },
-      ]
+      userInfo: []
     }
+  },
+  mounted() {
+      this.axios.get("http://127.0.0.1:3000/notes/114793824").then((response) => {
+        this.userInfo = response.data
+        console.log(this.userInfo.username)
+      })
   },
   methods: {
     updateDisplayInfo: function (item) {
       this.selectedNoteData.title = item.title
-      this.selectedNoteData.content = marked.parse(item.content);
+      this.selectedNoteData.content = item.content;
       this.$store.commit('setCurrentNote', this.selectedNoteData);
     },
   }

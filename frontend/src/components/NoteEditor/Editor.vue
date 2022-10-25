@@ -7,7 +7,6 @@
         language="en-US"
         toolbarsExclude="[github, mermaid, katex]"
         codeTheme="atom"
-        @input="handleInput"
     />
   </div>
 </template>

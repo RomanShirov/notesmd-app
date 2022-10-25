@@ -1,11 +1,11 @@
 import {createRouter, createWebHashHistory} from 'vue-router'
-import NoteEditor from "@/views/NoteEditor";
+import Entry from "@/views/Entry";
 
 const routes = [
     {
         path: '/',
-        name: 'home',
-        component: NoteEditor
+        name: 'Entry',
+        component: Entry
     },
     {
         path: '/editor',
