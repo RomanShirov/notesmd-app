@@ -1,5 +1,6 @@
 <template>
-  <div class="app-container">
+  <div v-if="isLoading"></div>
+  <div v-else class="app-container">
     <Sidebar/>
     <NoteList/>
     <Editor/>
@@ -13,6 +14,18 @@ import Editor from "@/components/NoteEditor/Editor";
 
 export default {
   name: "NoteEditor",
+  data(){
+    return {
+      isLoading: false
+    }
+  },
+  beforeMount() {
+    this.isLoading = true
+    this.axios.get("http://127.0.0.1:3000/notes/114793824").then((response) => {
+      this.$store.commit('setNoteData', response.data);
+    }).finally(() => this.isLoading = false)
+
+  },
   components: {
     Sidebar,
     NoteList,

@@ -7,7 +7,8 @@
         :key="item.id"
         :title="item.title"
         :subtitle="item.content"
-    >ID: {{item.id}}</v-list-item>
+    >ID: {{ item.id }}
+    </v-list-item>
   </v-list>
 </template>
 
@@ -17,25 +18,18 @@ export default {
   name: "NoteList",
   data() {
     return {
-      currentNote: {
-        selectedNoteId: '',
-        selectedNoteContent: ''
-      },
-      notes: {}
+      selectedNoteId: '',
+      notes: {},
     }
   },
-  mounted() {
-      this.axios.get("http://127.0.0.1:3000/notes/114793824").then((response) => {
-        this.$store.commit('setNoteData', response.data);
-        this.notes = this.$store.getters.getNotesList
-      })
+  beforeMount() {
+    this.notes = this.$store.getters.getNotesList
   },
   methods: {
+
     updateDisplayInfo: function (item) {
       this.selectedNoteId = item.id
-      this.selectedNoteContent = item.content
-      console.log("Current note", this.currentNote)
-      this.$store.commit('setCurrentNote', this.currentNote);
+      this.$store.commit('setCurrentNoteId', this.selectedNoteId);
     },
   }
 }

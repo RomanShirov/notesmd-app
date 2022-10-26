@@ -24,26 +24,22 @@ export default {
   data() {
     return {
       currentNote: {
-        id: 'ээ',
-        content: 'ээ'
+        id: '',
+        content: ''
       }
     }
   },
   computed: {
     ...mapState(["notesData"]),
+
     currentNoteState: {
       get(){
-        const noteList = this.notesData.notes
-        const note = noteList.find(note => note.id === this.$store.state.currentNoteId);
-        console.log(note)
-        this.currentNote.id = this.$store.state.currentNoteId
-        console.log("ID: ", this.currentNote.id, note.content)
-        this.currentNote.content = note.content
-        return this.currentNote.content
+        const result = this.notesData.notes.find(note => note.id === this.$store.state.currentNoteId)
+        return result ? result.content : "Choose a Note"
       },
-      // set(value){
-      //   this.$store.commit('updateNote', value, this.currentNote.id);
-      // }
+      set(value){
+        this.$store.commit('updateNote', value, this.currentNote.id);
+      }
     }
   }
 }

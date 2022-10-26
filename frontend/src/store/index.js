@@ -2,8 +2,7 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    currentNoteId: '123',
-    currentNoteContent: '123',
+    currentNoteId: '',
     notesData: [],
 
   },
@@ -13,9 +12,8 @@ export default createStore({
     },
   },
   mutations: {
-    setCurrentNote (state, payload) {
-      state.currentNoteId = payload.id
-      state.currentNoteContent = payload.content
+    setCurrentNoteId (state, payload) {
+      state.currentNoteId = payload
     },
     setNoteData (state, payload) {
       state.notesData = payload
