@@ -14,6 +14,7 @@
 <script>
 import MdEditor from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
+import {  mapState } from "vuex";
 
 export default {
   name: "Editor",
@@ -21,15 +22,23 @@ export default {
     MdEditor
   },
   data() {
-    return {}
+    return {
+      currentNote: {
+        id: '',
+        content: ''
+      }
+    }
   },
   computed: {
+    ...mapState(["notesData"]),
+
     currentNoteState: {
       get(){
-        return this.$store.state.currentNote.content
+        const result = this.notesData.notes.find(note => note.id === this.$store.state.currentNoteId)
+        return result ? result.content : "Choose a Note"
       },
       set(value){
-        this.$store.commit('setNoteData', value);
+        this.$store.commit('updateNote', value, this.currentNote.id);
       }
     }
   }
