@@ -18,6 +18,7 @@ export default {
   name: "NoteList",
   data() {
     return {
+      selectedFolder: '',
       selectedNoteId: '',
       notes: {},
     }

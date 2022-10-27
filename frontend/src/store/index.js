@@ -17,6 +17,13 @@ export default createStore({
     },
     setNoteData (state, payload) {
       state.notesData = payload
+    },
+    updateNote (state, payload) {
+      const id = payload.id;
+      const content = payload.content;
+      const idx = state.notesData.notes.findIndex(note => note.id === id);
+      state.notesData.notes[idx].content = content
+
     }
   },
   actions: {

@@ -35,10 +35,14 @@ export default {
     currentNoteState: {
       get(){
         const result = this.notesData.notes.find(note => note.id === this.$store.state.currentNoteId)
+        if(result){
+          this.currentNote.id = result.id
+        }
         return result ? result.content : "Choose a Note"
       },
       set(value){
-        this.$store.commit('updateNote', value, this.currentNote.id);
+        this.currentNote.content = value
+        this.$store.commit('updateNote', this.currentNote);
       }
     }
   }
