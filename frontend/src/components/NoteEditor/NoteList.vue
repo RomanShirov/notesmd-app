@@ -7,8 +7,7 @@
         :key="item.id"
         :title="item.title"
         :subtitle="item.content"
-    >ID: {{ item.id }}
-    </v-list-item>
+    ></v-list-item>
   </v-list>
 </template>
 
@@ -27,7 +26,6 @@ export default {
     this.notes = this.$store.getters.getNotesList
   },
   methods: {
-
     updateDisplayInfo: function (item) {
       this.selectedNoteId = item.id
       this.$store.commit('setCurrentNoteId', this.selectedNoteId);

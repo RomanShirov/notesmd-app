@@ -7,12 +7,16 @@
 </template>
 
 <script>
-
 export default {
   name: 'App',
   data: () => ({
     //
   }),
+  mounted() {
+    setInterval(() => {
+      this.$store.commit('syncState');
+    }, 3000);
+  }
 }
 </script>
 

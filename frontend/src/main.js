@@ -8,9 +8,7 @@ import VueAxios from 'vue-axios'
 
 import vuetify from './plugins/vuetify'
 import 'vuetify/dist/vuetify.min.css'
-import {loadFonts} from './plugins/webfontloader'
 
-loadFonts()
 
 createApp(App)
     .use(router)
@@ -18,3 +16,4 @@ createApp(App)
     .use(VueAxios, axios)
     .use(vuetify)
     .mount('#app')
+

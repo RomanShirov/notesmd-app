@@ -1,6 +1,5 @@
 import {createRouter, createWebHashHistory} from 'vue-router'
 import Entry from "@/views/Entry";
-import NoteEditor from "@/views/NoteEditor";
 
 const routes = [
     {

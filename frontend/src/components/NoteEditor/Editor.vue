@@ -14,7 +14,7 @@
 <script>
 import MdEditor from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
-import {  mapState } from "vuex";
+import {mapState} from "vuex";
 
 export default {
   name: "Editor",

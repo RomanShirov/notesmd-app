@@ -11,6 +11,11 @@ export default {
   name: "Entry",
   components: {
     ModeSelection,
+  },
+  beforeMount() {
+    if(this.$store.state.isLocalStorage){
+      this.$router.push('/editor')
+    }
   }
 }
 </script>
