@@ -39,9 +39,6 @@ export default {
       this.selectedNoteId = item.id
       this.$store.commit('setCurrentNoteId', this.selectedNoteId);
     },
-    changeReadOnly: function () {
-      this.$store.commit('changeReadOnlyStatus');
-    },
   },
   computed: {
     lastSyncTime: function () {
