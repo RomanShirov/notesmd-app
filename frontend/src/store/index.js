@@ -26,13 +26,23 @@ export default createStore({
 
         getFolderList(state) {
             state.notesData.notes.forEach(note => {
-                note.folders.forEach(folder =>{
+                note.folders.forEach(folder => {
                     state.folders.push(folder)
                 })
             })
             state.folders = state.folders.filter((i, idx) => state.folders.indexOf(i) === idx);
             return state.folders
 
+        },
+
+        getNotesByFolder: (state) => (folder) => {
+            let notesByFolder = [];
+            state.notesData.notes.forEach(note => {
+                if(note.folders.includes(folder)){
+                    notesByFolder.push(note)
+                }
+            })
+            return notesByFolder;
         },
 
         getLocalStorageState(state) {

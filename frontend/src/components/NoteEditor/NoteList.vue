@@ -1,12 +1,13 @@
 <template>
   <v-list class="card" lines="two">
     <div class="note-list-header">
-      <v-tabs class="tab-list" v-model="folders" background-color="red-lighten-2" hide-slider>
-        <v-tab class="tab rounded-lg" v-for="folder in folders" :key="folder" :value="folder">
+      <v-tabs class="tab-list" v-model="folders" background-color="red-lighten-2" height="50" hide-slider>
+        <v-tab class="tab rounded-lg" v-for="folder in folders" :key="folder" :value="folder" @click="updateSelectedFolder(folder)">
           {{ folder }}
         </v-tab>
       </v-tabs>
     </div>
+    <p class="note-list-title">{{selectedFolder}}</p>
     <v-list-item
         @click="updateDisplayInfo(item)"
         class="element"
@@ -24,7 +25,7 @@ export default {
   name: "NoteList",
   data() {
     return {
-      selectedFolder: '',
+      selectedFolder: null,
       selectedNoteId: '',
       notes: {},
       folders: [],
@@ -38,6 +39,10 @@ export default {
     updateDisplayInfo: function (item) {
       this.selectedNoteId = item.id
       this.$store.commit('setCurrentNoteId', this.selectedNoteId);
+    },
+    updateSelectedFolder: function (folder) {
+      this.selectedFolder = folder
+      this.notes = this.$store.getters.getNotesByFolder(folder)
     },
   },
   computed: {
