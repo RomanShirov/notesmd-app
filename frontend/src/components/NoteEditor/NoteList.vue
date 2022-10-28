@@ -1,5 +1,8 @@
 <template>
   <v-list class="card" lines="two">
+    <div class="note-list-header">
+      <input type="button" class="note-list-header-button" @click="changeReadOnly" value="Reading mode"/>
+    </div>
     <v-list-item
         @click="updateDisplayInfo(item)"
         class="element"
@@ -8,11 +11,11 @@
         :title="item.title"
         :subtitle="item.content"
     ></v-list-item>
+
   </v-list>
 </template>
 
 <script>
-
 export default {
   name: "NoteList",
   data() {
@@ -23,12 +26,20 @@ export default {
     }
   },
   beforeMount() {
-    this.notes = this.$store.getters.getNotesList
+    this.notes = this.$store.getters.getNotes
   },
   methods: {
     updateDisplayInfo: function (item) {
       this.selectedNoteId = item.id
       this.$store.commit('setCurrentNoteId', this.selectedNoteId);
+    },
+    changeReadOnly: function () {
+      this.$store.commit('changeReadOnlyStatus');
+    },
+  },
+  computed: {
+    lastSyncTime: function () {
+      return this.$store.getters.getLastSyncTime.toLocaleString()
     },
   }
 }

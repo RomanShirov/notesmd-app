@@ -14,8 +14,8 @@ export default {
   }),
   mounted() {
     setInterval(() => {
-      this.$store.commit('syncState');
-    }, 3000);
+      this.$store.commit('syncNotes');
+    }, 5000);
   }
 }
 </script>

@@ -8,6 +8,7 @@ import VueAxios from 'vue-axios'
 
 import vuetify from './plugins/vuetify'
 import 'vuetify/dist/vuetify.min.css'
+import 'animate.css';
 
 
 createApp(App)
