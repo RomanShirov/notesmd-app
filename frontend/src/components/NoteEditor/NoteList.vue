@@ -1,7 +1,11 @@
 <template>
   <v-list class="card" lines="two">
     <div class="note-list-header">
-      <input type="button" class="note-list-header-button" @click="changeReadOnly" value="Reading mode"/>
+      <v-tabs class="tab-list" v-model="folders" background-color="red-lighten-2" hide-slider>
+        <v-tab class="tab rounded-lg" v-for="folder in folders" :key="folder" :value="folder">
+          {{ folder }}
+        </v-tab>
+      </v-tabs>
     </div>
     <v-list-item
         @click="updateDisplayInfo(item)"
@@ -23,10 +27,12 @@ export default {
       selectedFolder: '',
       selectedNoteId: '',
       notes: {},
+      folders: [],
     }
   },
   beforeMount() {
     this.notes = this.$store.getters.getNotes
+    this.folders = this.$store.getters.getFolderList
   },
   methods: {
     updateDisplayInfo: function (item) {
@@ -41,6 +47,11 @@ export default {
     lastSyncTime: function () {
       return this.$store.getters.getLastSyncTime.toLocaleString()
     },
+    computed: {
+      getFolders: function () {
+        return this.$store.getters.getFolderList
+      }
+    }
   }
 }
 </script>
