@@ -13,7 +13,7 @@
         previewOnly="true"
     >
       <template #defFooters>
-        <span class="update-time">Last update: </span>
+        <span class="update-status">{{isSynchronized}}</span>
       </template>
     </md-editor>
     <md-editor
@@ -28,7 +28,7 @@
         :footers="footers"
     >
       <template #defFooters>
-        <span class="update-status">{{ updateTime }}</span>
+        <span class="update-status">{{isSynchronized}}</span>
       </template>
     </md-editor>
   </div>
@@ -56,8 +56,8 @@ export default {
   computed: {
     ...mapState(["receivedFolderData"]),
 
-    updateTime(){
-      return this.$store.state.lastSyncTime
+    isSynchronized(){
+      return this.$store.state.isSynchronized
     },
 
     currentNoteState: {

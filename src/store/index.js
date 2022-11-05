@@ -18,15 +18,13 @@ export default createStore({
         },
 
         receivedFolderData: [],
-        lastSyncTime: 1243
-
+        isSynchronized: null,
+        editedNoteCache: ''
 
 
     },
 
-    getters: {
-
-    },
+    getters: {},
     mutations: {
         setFolderData: function (state, data) {
             state.receivedFolderData = data;
@@ -38,9 +36,8 @@ export default createStore({
 
             state.selectedObjectState.selectedFolder = data;
 
-            console.log("STATE: ", requestUrl);
             axios.get(requestUrl, {headers: {Authorization: `Bearer ${token}`}}).then((response) => {
-                state.receivedFolderData =  response.data;
+                state.receivedFolderData = response.data;
 
             })
         },
@@ -61,6 +58,26 @@ export default createStore({
             const data = payload.data;
             const idx = state.receivedFolderData.findIndex(note => note.id === id);
             state.receivedFolderData[idx].data = data;
+            state.editedNoteCache = data;
+        },
+
+        synchronizeNote(state) {
+            if (state.selectedObjectState.selectedNoteId) {
+                const id = state.selectedObjectState.selectedNoteId;
+                const data = state.editedNoteCache;
+                const token = state.userInformation.jwtToken
+
+                axios.patch("http://127.0.0.1:8000/api/notes/", {
+                    "note_id": id,
+                    "data": data
+                }, {headers: {Authorization: `Bearer ${token}`}})
+                    .then(() => {
+                        state.isSynchronized = "All changes saved";
+                        setTimeout(() => {
+                            state.isSynchronized = null
+                        }, 1000);
+                    });
+            }
         },
     },
     actions: {},

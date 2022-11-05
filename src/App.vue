@@ -13,7 +13,9 @@ export default {
     //
   }),
   mounted() {
-
+    setInterval(() => {
+      this.$store.commit('synchronizeNote');
+    }, 10000);
   }
 }
 </script>
