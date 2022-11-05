@@ -24,7 +24,7 @@ export default {
     }
   },
   methods: {
-    changeReadOnly: function () {
+    changeReadOnly() {
       this.$store.commit('setReadOnlyState');
     },
   },

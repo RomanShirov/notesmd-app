@@ -1,5 +1,5 @@
 <template>
-  <v-list class="card" lines="two">
+  <div class="list-container">
     <div class="note-list-header">
       <v-tabs class="tab-list" v-model="notes.folders" background-color="red-lighten-2" height="50" hide-slider>
         <v-tab class="tab rounded-lg" v-for="folder in notes.folders" :key="folder" :value="folder"
@@ -9,16 +9,27 @@
       </v-tabs>
     </div>
     <p class="note-list-title">{{ notes.selectedFolder }}</p>
-    <v-list-item
-        @click="updateDisplayInfo(item)"
-        class="element"
-        v-for="item in notes.notes"
-        :key="item.id"
-        :title="item.title"
-        :subtitle="item.data"
-    ></v-list-item>
+    <v-list class="card" lines="two">
+      <v-list-item
+          @click="updateDisplayInfo(item)"
+          class="element"
+          v-for="item in notes.notes"
+          :key="item.id"
+          :title="item.title"
+          :subtitle="item.data"
+      ></v-list-item>
 
-  </v-list>
+    </v-list>
+    <v-btn
+        class="create-note-btn"
+        variant="outlined"
+        size="large"
+        icon
+        color="white"
+    >
+      <v-icon>mdi-pencil</v-icon>
+    </v-btn>
+  </div>
 </template>
 
 <script>
@@ -36,12 +47,12 @@ export default {
   },
 
   methods: {
-    updateDisplayInfo: function (item) {
+    updateDisplayInfo(item) {
       this.selectedNoteId = item.id
       this.$store.commit('setNoteId', this.selectedNoteId);
     },
 
-    updateSelectedFolder: function (item) {
+    updateSelectedFolder(item) {
       this.$store.commit('selectFolder', item);
       this.$store.commit('setNotesByFolder', item);
     },
@@ -54,7 +65,7 @@ export default {
         selectedFolder: this.$store.state.selectedObjectState.selectedFolder
       }
     },
-    getFolders: function () {
+    getFolders() {
       return this.folders
     },
   }

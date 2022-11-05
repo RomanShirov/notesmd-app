@@ -1,16 +1,31 @@
-.card
+.list-container
   width: 25%
   height: 98vh
   overflow-y: scroll
   border-radius: 15px
-  -ms-overflow-style: none
+  display: flex
+  flex-direction: column
+  justify-content: flex-start
+  gap: 10px
+  ms-overflow-style: none
   scrollbar-width: none
+  background-color: #1b1d1f
+  color: #ffffff
+
+.list-container::-webkit-scrollbar
+  display: none
+
+.card
+  height: 85vh
   display: flex
   flex-direction: column
   align-items: center
   gap: 10px
   background-color: #1b1d1f
   color: #ffffff
+  overflow-y: scroll
+    -ms-overflow-style: none
+  scrollbar-width: none
 
 .card::-webkit-scrollbar
   display: none
@@ -28,6 +43,7 @@
   background-color: #cc4f4e
 
 .note-list-header
+  margin: 10px auto
   width: 95%
   height: 60px
   background-color: #252525
@@ -40,6 +56,7 @@
 .note-list-title
   font-family: "Font-Semibold", sans-serif
   font-size: 1.5em
+  margin-left: 20px
 
 .note-list-header-button
   background-color: #323234
@@ -52,8 +69,6 @@
   color: #ffffff
   border-radius: 15px
   width: 98%
-
-
 
 
 .element
@@ -76,3 +91,10 @@
   padding-right: 10px
   border-radius: 5px
   height: 25px
+
+.create-note-btn
+  background-color: #cc4f4e
+  position: absolute
+  top: 90%
+  left: 25%
+  border: none

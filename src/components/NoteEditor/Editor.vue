@@ -78,7 +78,7 @@ export default {
     //   return this.$store.getters.getLastSyncTime.toLocaleString()
     // },
 
-    isReadOnly: function () {
+    isReadOnly() {
       return this.$store.state.applicationState.readOnlyMode
     }
   }

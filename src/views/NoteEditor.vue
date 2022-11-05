@@ -2,8 +2,8 @@
   <div v-if="isLoading" class="app-container"></div>
   <div v-else class="app-container">
     <Sidebar/>
-    <NoteList/>
-    <Editor/>
+    <NoteList class="note-list"/>
+    <Editor class="note-editor"/>
   </div>
 </template>
 
@@ -42,3 +42,12 @@ export default {
   },
 }
 </script>
+
+<style scoped lang="sass">
+@media (max-width: 950px)
+  .note-list
+    display: none
+
+  .note-editor
+    width: 90%
+</style>
