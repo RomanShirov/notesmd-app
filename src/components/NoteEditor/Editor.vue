@@ -2,7 +2,7 @@
   <div class="editor-container">
     <md-editor
         v-if="isReadOnly"
-        class="editor"
+        class="editor readonly"
         ref="editor"
         v-model="currentNoteState"
         theme="dark"
