@@ -28,7 +28,7 @@
         :footers="footers"
     >
       <template #defFooters>
-        <span class="update-time">Last update: </span>
+        <span class="update-status">{{ updateTime }}</span>
       </template>
     </md-editor>
   </div>
@@ -55,6 +55,10 @@ export default {
   },
   computed: {
     ...mapState(["receivedFolderData"]),
+
+    updateTime(){
+      return this.$store.state.lastSyncTime
+    },
 
     currentNoteState: {
       get() {

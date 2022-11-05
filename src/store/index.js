@@ -17,7 +17,8 @@ export default createStore({
             readOnlyMode: false,
         },
 
-        receivedFolderData: []
+        receivedFolderData: [],
+        lastSyncTime: 1243
 
 
 

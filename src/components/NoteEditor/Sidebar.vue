@@ -2,7 +2,7 @@
   <div class="sidebar">
     <div class="icon" title="Settings"><cog-icon class="icon" ></cog-icon></div>
     <div class="icon" title="Toggle Read-only mode"><book-open class="icon" title="Toggle Read-only mode" @click="changeReadOnly"></book-open></div>
-    <div class="icon" title="Back to all notes"><folder-home class="icon" ></folder-home></div>
+    <div class="icon" title="Back to all notes" @click="this.$router.push('/overview')"><folder-home class="icon" ></folder-home></div>
 
   </div>
 </template>
