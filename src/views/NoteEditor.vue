@@ -22,9 +22,17 @@ export default {
   beforeMount() {
     this.isLoading = true
 
-    this.axios.get("http://127.0.0.1:3000/notes/114793824").then((response) => {
-      this.$store.commit('setNoteData', response.data);
-    }).finally(() => this.isLoading = false)
+    const folder = this.$store.state.selectedObjectState.selectedFolder
+    const requestUrl = `http://127.0.0.1:8000/api/notes/${folder}`
+    const token = this.$store.state.userInformation.jwtToken
+
+    console.log("COMPONENT: ", requestUrl)
+
+    this.axios.get(requestUrl, {headers: {Authorization: `Bearer ${token}`}}).then((response) => {
+      this.$store.commit('setFolderData', response.data);
+    }).finally(() => {
+      this.isLoading = false
+    })
 
   },
   components: {

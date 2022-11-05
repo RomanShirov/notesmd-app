@@ -2,7 +2,7 @@
   <v-list class="card" lines="two">
     <div class="note-list-header">
       <v-tabs class="tab-list" v-model="folders" background-color="red-lighten-2" height="50" hide-slider>
-        <v-tab class="tab rounded-lg" v-for="folder in folders" :key="folder" :value="folder" @click="updateSelectedFolder(folder)">
+        <v-tab class="tab rounded-lg" v-for="(folder, idx) in folders" :key="folder" :value="folder" @click="updateSelectedFolder(folder)">
           {{ folder }}
         </v-tab>
       </v-tabs>
@@ -14,7 +14,7 @@
         v-for="item in notes"
         :key="item.id"
         :title="item.title"
-        :subtitle="item.content"
+        :subtitle="item.data"
     ></v-list-item>
 
   </v-list>
@@ -25,34 +25,38 @@ export default {
   name: "NoteList",
   data() {
     return {
-      selectedFolder: null,
+      selectedFolder: '',
       selectedNoteId: '',
       notes: {},
       folders: [],
     }
   },
   beforeMount() {
-    this.notes = this.$store.getters.getNotes
-    this.folders = this.$store.getters.getFolderList
+    this.notes = this.$store.state.receivedFolderData
+    this.folders = this.$store.state.selectedObjectState.folders
+    this.selectedFolder = this.$store.state.selectedObjectState.selectedFolder
   },
   methods: {
     updateDisplayInfo: function (item) {
       this.selectedNoteId = item.id
-      this.$store.commit('setCurrentNoteId', this.selectedNoteId);
+      this.$store.commit('setNoteId', this.selectedNoteId);
     },
-    updateSelectedFolder: function (folder) {
-      this.selectedFolder = folder
-      this.notes = this.$store.getters.getNotesByFolder(folder)
+
+    updateSelectedFolder: function (item) {
+      this.selectedFolder = item
+      this.$store.commit('selectFolder', item);
+      this.$store.commit('setNotesByFolder', item);
+      this.notes = this.$store.state.receivedFolderData
     },
   },
   computed: {
-    lastSyncTime: function () {
-      return this.$store.getters.getLastSyncTime.toLocaleString()
-    },
+    // lastSyncTime: function () {
+    //   return this.$store.getters.getLastSyncTime.toLocaleString()
+    // },
     computed: {
       getFolders: function () {
-        return this.$store.getters.getFolderList
-      }
+        return this.folders
+      },
     }
   }
 }

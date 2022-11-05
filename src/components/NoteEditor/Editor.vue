@@ -13,7 +13,7 @@
         previewOnly="true"
     >
       <template #defFooters>
-        <span class="update-time">Last update: {{ lastSyncTime }}</span>
+        <span class="update-time">Last update: </span>
       </template>
     </md-editor>
     <md-editor
@@ -28,7 +28,7 @@
         :footers="footers"
     >
       <template #defFooters>
-        <span class="update-time">Last update: {{ lastSyncTime }}</span>
+        <span class="update-time">Last update: </span>
       </template>
     </md-editor>
   </div>
@@ -46,36 +46,36 @@ export default {
   },
   data() {
     return {
-      currentNote: {
+      note: {
         id: null,
-        content: null
+        data: null
       },
       footers: ['markdownTotal', 'scrollSwitch', 0],
     }
   },
   computed: {
-    ...mapState(["notesData"]),
+    ...mapState(["receivedFolderData"]),
 
     currentNoteState: {
       get() {
-        const result = this.notesData.notes.find(note => note.id === this.$store.state.currentNoteId)
+        const result = this.receivedFolderData.find(note => note.id === this.$store.state.selectedObjectState.selectedNoteId)
         if (result) {
-          this.currentNote.id = result.id
+          this.note.id = result.id
         }
-        return result ? result.content : "Choose a Note"
+        return result ? result.data : "Choose a Note"
       },
       set(value) {
-        this.currentNote.content = value
-        this.$store.commit('updateNote', this.currentNote);
+        this.note.data = value
+        this.$store.commit('updateNote', this.note);
       }
     },
 
-    lastSyncTime: function () {
-      return this.$store.getters.getLastSyncTime.toLocaleString()
-    },
+    // lastSyncTime: function () {
+    //   return this.$store.getters.getLastSyncTime.toLocaleString()
+    // },
 
     isReadOnly: function () {
-      return this.$store.getters.isReadOnly
+      return this.$store.state.applicationState.readOnlyMode
     }
   }
 }
