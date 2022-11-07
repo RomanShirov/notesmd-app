@@ -3,9 +3,8 @@
     <div class="modal">
       <div class="modal-content">
         <h1>Create note</h1>
-        {{ createRequest.title }}, {{ createRequest.folder }}
         <v-text-field
-            class="modal-title-input"
+            class="modal-input"
             label="Title"
             v-model="createRequest.title"
             :rules="rules"
@@ -13,15 +12,15 @@
             theme="dark"
             variant="solo"
         ></v-text-field>
-        <v-select
-            class="modal-select"
-            :items="folders"
+        <v-text-field
+            class="modal-input"
             label="Folder"
             v-model="createRequest.folder"
-            density="comfortable"
+            :rules="rules"
+            hide-details="auto"
             theme="dark"
             variant="solo"
-        ></v-select>
+        ></v-text-field>
         <v-btn class="upload-button" size="large" @click="uploadNote">
           Create
         </v-btn>

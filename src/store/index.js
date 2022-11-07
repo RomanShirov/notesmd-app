@@ -16,6 +16,7 @@ export default createStore({
     applicationState: {
       readOnlyMode: false,
       createNoteModalIsVisible: false,
+      isDeletingMode: true
     },
 
     receivedFolderData: [],
@@ -31,6 +32,7 @@ export default createStore({
     },
 
     setNotesByFolder(state, data) {
+      console.log('setNotesByFolder');
       const requestUrl = `http://127.0.0.1:8000/api/notes/${data}`;
       const token = state.userInformation.jwtToken;
 
@@ -89,13 +91,19 @@ export default createStore({
       const folder = payload.folder;
       const token = state.userInformation.jwtToken;
 
+      console.log(title, folder);
+
       axios.put('http://127.0.0.1:8000/api/notes/', {
         'title': title,
         'folder': folder,
 
       }, {headers: {Authorization: `Bearer ${token}`}}).then((response) => {
-        state.selectedObjectState.selectedFolder = folder;
+        console.log('RES:', response.data.folder);
+        console.log('RES DATA:', response.data.id);
+        console.log('LOCAL: ', folder);
+        this.commit('setNotesByFolder', folder);
         state.selectedObjectState.selectedNoteId = response.data.id;
+        console.log(state.receivedFolderData);
       });
     },
   },

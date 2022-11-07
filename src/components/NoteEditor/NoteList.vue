@@ -17,7 +17,9 @@
           :key="item.id"
           :title="item.title"
           :subtitle="item.data"
-      ></v-list-item>
+      >
+        <span class="delete-button" v-if="notes.isDeletingMode" @click="deleteNote(item)">Delete</span>
+      </v-list-item>
 
     </v-list>
     <v-btn
@@ -61,6 +63,10 @@ export default {
     createNote() {
       this.$store.commit('setModalVisibility');
     },
+
+    deleteNote(item) {
+      console.log('deleteNote', item.id);
+    },
   },
   computed: {
     notes() {
@@ -68,6 +74,7 @@ export default {
         notes: this.$store.state.receivedFolderData,
         folders: this.$store.state.selectedObjectState.folders,
         selectedFolder: this.$store.state.selectedObjectState.selectedFolder,
+        isDeletingMode: this.$store.state.applicationState.isDeletingMode,
       };
     },
     getFolders() {
