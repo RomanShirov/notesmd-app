@@ -15,6 +15,7 @@ export default createStore({
 
         applicationState: {
             readOnlyMode: false,
+            createNoteModalIsVisible: false,
         },
 
         receivedFolderData: [],
@@ -26,11 +27,11 @@ export default createStore({
 
     getters: {},
     mutations: {
-        setFolderData: function (state, data) {
+        setFolderData(state, data) {
             state.receivedFolderData = data;
         },
 
-        setNotesByFolder: function (state, data) {
+        setNotesByFolder(state, data) {
             const requestUrl = `http://127.0.0.1:8000/api/notes/${data}`
             const token = state.userInformation.jwtToken
 
@@ -42,14 +43,18 @@ export default createStore({
             })
         },
 
-        setNoteId: function (state, data) {
+        setNoteId(state, data) {
             state.selectedObjectState.selectedNoteId = data;
         },
-        setReadOnlyState: function (state) {
+        setReadOnlyState(state) {
             state.applicationState.readOnlyMode = !state.applicationState.readOnlyMode;
         },
 
-        selectFolder: function (state, data) {
+        setModalVisibility(state) {
+            state.applicationState.createNoteModalIsVisible = !state.applicationState.createNoteModalIsVisible;
+        },
+
+        selectFolder(state, data) {
             state.selectedObjectState.selectedFolder = data;
         },
 
@@ -78,6 +83,22 @@ export default createStore({
                         }, 1000);
                     });
             }
+        },
+
+        uploadNote(state, payload) {
+                const title = payload.title;
+                const folder = payload.folder;
+                const token = state.userInformation.jwtToken
+
+                axios.put("http://127.0.0.1:8000/api/notes/", {
+                    "title": title,
+                    "folder": folder
+
+                }, {headers: {Authorization: `Bearer ${token}`}})
+                    .then((response) => {
+                        state.selectedObjectState.selectedFolder = folder;
+                        state.selectedObjectState.selectedNoteId = response.data.id;
+                    });
         },
     },
     actions: {},

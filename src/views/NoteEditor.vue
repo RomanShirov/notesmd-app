@@ -4,6 +4,7 @@
     <Sidebar/>
     <NoteList class="note-list"/>
     <Editor class="note-editor"/>
+    <CreateNoteModal v-if="isModalVisible"/>
   </div>
 </template>
 
@@ -11,6 +12,7 @@
 import Sidebar from "@/components/NoteEditor/Sidebar";
 import NoteList from "@/components/NoteEditor/NoteList";
 import Editor from "@/components/NoteEditor/Editor";
+import CreateNoteModal from "@/components/NoteEditor/CreateNoteModal";
 
 export default {
   name: "NoteEditor",
@@ -35,10 +37,17 @@ export default {
     })
 
   },
+  computed: {
+    isModalVisible(){
+      return this.$store.state.applicationState.createNoteModalIsVisible
+    }
+  },
+
   components: {
     Sidebar,
     NoteList,
-    Editor
+    Editor,
+    CreateNoteModal
   },
 }
 </script>

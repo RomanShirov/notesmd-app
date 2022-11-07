@@ -26,6 +26,7 @@
         size="large"
         icon
         color="white"
+        @click="createNote"
     >
       <v-icon>mdi-pencil</v-icon>
     </v-btn>
@@ -55,6 +56,10 @@ export default {
     updateSelectedFolder(item) {
       this.$store.commit('selectFolder', item);
       this.$store.commit('setNotesByFolder', item);
+    },
+
+    createNote() {
+      this.$store.commit('setModalVisibility');
     },
   },
   computed: {
