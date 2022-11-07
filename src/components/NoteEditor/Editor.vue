@@ -1,5 +1,6 @@
 <template>
   <div class="editor-container">
+    <!--Duplicate components, because previewOnly=false not working-->
     <md-editor
         v-if="isReadOnly"
         class="editor readonly"
@@ -74,10 +75,6 @@ export default {
         this.$store.commit('updateNote', this.note);
       },
     },
-
-    // lastSyncTime: function () {
-    //   return this.$store.getters.getLastSyncTime.toLocaleString()
-    // },
 
     isReadOnly() {
       return this.$store.state.applicationState.readOnlyMode;

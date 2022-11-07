@@ -4,6 +4,7 @@ import axios from 'axios';
 export default createStore({
   state: {
     userInformation: {
+      email: null,
       jwtToken: '7|UN0ZlYi55MSYvksjOPZbNHe1C2k9AxF8OKnwWrNV',
     },
 
@@ -31,27 +32,6 @@ export default createStore({
       state.receivedFolderData = data;
     },
 
-    setNotesByFolder(state, data) {
-      const token = state.userInformation.jwtToken;
-
-      state.selectedObjectState.selectedFolder = data;
-
-      axios.get(`http://127.0.0.1:8000/api/notes/${data}`, {headers: {Authorization: `Bearer ${token}`}}).
-          then((response) => {
-            state.receivedFolderData = response.data;
-
-          });
-    },
-
-    loadFolderList(state) {
-      const token = state.userInformation.jwtToken;
-      axios.get(`http://127.0.0.1:8000/api/folders`, {headers: {Authorization: `Bearer ${token}`}}).
-          then((response) => {
-            state.selectedObjectState.folders = response.data;
-            state.selectedObjectState.selectedFolder = state.selectedObjectState.folders[0];
-          })
-    },
-
     setNoteId(state, data) {
       state.selectedObjectState.selectedNoteId = data;
     },
@@ -71,6 +51,28 @@ export default createStore({
       state.selectedObjectState.selectedFolder = data;
     },
 
+    setNotesByFolder(state, data) {
+      const token = state.userInformation.jwtToken;
+
+      state.selectedObjectState.selectedFolder = data;
+
+      axios.get(`http://127.0.0.1:8000/api/notes/${data}`,
+          {headers: {Authorization: `Bearer ${state.userInformation.jwtToken}`}}).
+          then((response) => {
+            state.receivedFolderData = response.data;
+          });
+    },
+
+    loadFolderList(state) {
+      const token = state.userInformation.jwtToken;
+      axios.get(`http://127.0.0.1:8000/api/folders`,
+          {headers: {Authorization: `Bearer ${state.userInformation.jwtToken}`}}).
+          then((response) => {
+            state.selectedObjectState.folders = response.data;
+            state.selectedObjectState.selectedFolder = state.selectedObjectState.folders[0];
+          });
+    },
+
     updateNote(state, payload) {
       const id = payload.id;
       const data = payload.data;
@@ -81,50 +83,52 @@ export default createStore({
 
     deleteNote(state, payload) {
       const id = payload;
-      const token = state.userInformation.jwtToken;
-
       const idx = state.receivedFolderData.findIndex(note => note.id === id);
+
       state.receivedFolderData.splice(idx, 1);
       axios.delete(`http://127.0.0.1:8000/api/notes/${id}`,
-          {headers: {Authorization: `Bearer ${token}`}}).then(() => {
-      });
+          {headers: {Authorization: `Bearer ${state.userInformation.jwtToken}`}}).
+          then(() => {
+          });
     },
 
     synchronizeNote(state) {
       if (state.selectedObjectState.selectedNoteId) {
         const id = state.selectedObjectState.selectedNoteId;
         const data = state.editedNoteCache;
-        const token = state.userInformation.jwtToken;
 
-        console.log("PATCH")
+        console.log('PATCH');
         axios.patch('http://127.0.0.1:8000/api/notes/', {
-          'note_id': id,
-          'data': data,
-        }, {headers: {Authorization: `Bearer ${token}`}}).then(() => {
-          state.isSynchronized = 'All changes saved';
-          setTimeout(() => {
-            state.isSynchronized = null;
-          }, 1000);
-        });
+              'note_id': id,
+              'data': data,
+            },
+            {headers: {Authorization: `Bearer ${state.userInformation.jwtToken}`}}).
+            then(() => {
+              state.isSynchronized = 'All changes saved';
+              setTimeout(() => {
+                state.isSynchronized = null;
+              }, 1000);
+            });
       }
     },
 
     uploadNote(state, payload) {
       const title = payload.title;
       const folder = payload.folder;
-      const token = state.userInformation.jwtToken;
 
       axios.put('http://127.0.0.1:8000/api/notes/', {
-        'title': title,
-        'folder': folder,
+            'title': title,
+            'folder': folder,
 
-      }, {headers: {Authorization: `Bearer ${token}`}}).then((response) => {
-        this.commit('setNotesByFolder', folder);
-        state.selectedObjectState.selectedNoteId = response.data.id;
-        if(state.selectedObjectState.folders.includes(folder) === false) {
-          state.selectedObjectState.folders.push(folder)
-        }
-      });
+          },
+          {headers: {Authorization: `Bearer ${state.userInformation.jwtToken}`}}).
+          then((response) => {
+            this.commit('setNotesByFolder', folder);
+            state.selectedObjectState.selectedNoteId = response.data.id;
+            if (state.selectedObjectState.folders.includes(folder) === false) {
+              state.selectedObjectState.folders.push(folder);
+            }
+          });
     },
   },
   actions: {},
