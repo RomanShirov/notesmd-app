@@ -13,7 +13,7 @@
         previewOnly="true"
     >
       <template #defFooters>
-        <span class="update-status">{{isSynchronized}}</span>
+        <span class="update-status">{{ isSynchronized }}</span>
       </template>
     </md-editor>
     <md-editor
@@ -28,7 +28,7 @@
         :footers="footers"
     >
       <template #defFooters>
-        <span class="update-status">{{isSynchronized}}</span>
+        <span class="update-status">{{ isSynchronized }}</span>
       </template>
     </md-editor>
   </div>
@@ -37,41 +37,42 @@
 <script>
 import MdEditor from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
-import {mapState} from "vuex";
+import {mapState} from 'vuex';
 
 export default {
-  name: "Editor",
+  name: 'Editor',
   components: {
-    MdEditor
+    MdEditor,
   },
   data() {
     return {
       note: {
         id: null,
-        data: null
+        data: null,
       },
       footers: ['markdownTotal', 'scrollSwitch', 0],
-    }
+    };
   },
   computed: {
-    ...mapState(["receivedFolderData"]),
+    ...mapState(['receivedFolderData']),
 
-    isSynchronized(){
-      return this.$store.state.isSynchronized
+    isSynchronized() {
+      return this.$store.state.isSynchronized;
     },
 
     currentNoteState: {
       get() {
-        const result = this.receivedFolderData.find(note => note.id === this.$store.state.selectedObjectState.selectedNoteId)
+        const result = this.receivedFolderData.find(
+            note => note.id === this.$store.state.selectedObjectState.selectedNoteId);
         if (result) {
-          this.note.id = result.id
+          this.note.id = result.id;
         }
-        return result ? result.data : "Choose a Note"
+        return result ? result.data : 'Choose a Note';
       },
       set(value) {
-        this.note.data = value
+        this.note.data = value;
         this.$store.commit('updateNote', this.note);
-      }
+      },
     },
 
     // lastSyncTime: function () {
@@ -79,10 +80,10 @@ export default {
     // },
 
     isReadOnly() {
-      return this.$store.state.applicationState.readOnlyMode
-    }
-  }
-}
+      return this.$store.state.applicationState.readOnlyMode;
+    },
+  },
+};
 </script>
 
 <style lang="sass" scoped>

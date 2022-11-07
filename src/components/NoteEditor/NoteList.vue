@@ -35,21 +35,21 @@
 
 <script>
 export default {
-  name: "NoteList",
+  name: 'NoteList',
   data() {
     return {
       selectedNoteId: '',
-    }
+    };
   },
   beforeMount() {
-    this.notes = this.$store.state.receivedFolderData
-    this.folders = this.$store.state.selectedObjectState.folders
-    this.selectedFolder = this.$store.state.selectedObjectState.selectedFolder
+    this.notes = this.$store.state.receivedFolderData;
+    this.folders = this.$store.state.selectedObjectState.folders;
+    this.selectedFolder = this.$store.state.selectedObjectState.selectedFolder;
   },
 
   methods: {
     updateDisplayInfo(item) {
-      this.selectedNoteId = item.id
+      this.selectedNoteId = item.id;
       this.$store.commit('setNoteId', this.selectedNoteId);
     },
 
@@ -67,14 +67,14 @@ export default {
       return {
         notes: this.$store.state.receivedFolderData,
         folders: this.$store.state.selectedObjectState.folders,
-        selectedFolder: this.$store.state.selectedObjectState.selectedFolder
-      }
+        selectedFolder: this.$store.state.selectedObjectState.selectedFolder,
+      };
     },
     getFolders() {
-      return this.folders
+      return this.folders;
     },
-  }
-}
+  },
+};
 </script>
 
 <style lang="sass" scoped>

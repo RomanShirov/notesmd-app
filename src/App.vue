@@ -16,8 +16,8 @@ export default {
     setInterval(() => {
       this.$store.commit('synchronizeNote');
     }, 10000);
-  }
-}
+  },
+};
 </script>
 
 <style lang="sass">

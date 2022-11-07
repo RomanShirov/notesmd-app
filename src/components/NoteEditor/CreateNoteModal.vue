@@ -33,11 +33,11 @@
 
 <script>
 export default {
-  name: "CreateNoteModal",
+  name: 'CreateNoteModal',
   data: () => ({
     createRequest: {
-      title: "",
-      folder: "",
+      title: '',
+      folder: '',
     },
     rules: [
       value => !!value || 'Title required',
@@ -48,17 +48,17 @@ export default {
     close() {
       this.$store.commit('setModalVisibility');
     },
-    uploadNote(){
+    uploadNote() {
       this.$store.commit('uploadNote', this.createRequest);
       this.$store.commit('setModalVisibility');
-    }
+    },
   },
   computed: {
     folders() {
       return this.$store.state.selectedObjectState.folders;
     },
-  }
-}
+  },
+};
 </script>
 
 <style lang="sass" scoped>
