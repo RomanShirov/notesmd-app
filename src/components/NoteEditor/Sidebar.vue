@@ -9,6 +9,9 @@
     <div class="icon" title="Back to all notes" @click="this.$router.push('/overview')">
       <folder-home class="icon"></folder-home>
     </div>
+    <div class="icon" title="Enable deleting mode" @click="setDeletingMode">
+      <delete-sweep class="icon"></delete-sweep>
+    </div>
 
   </div>
 </template>
@@ -17,6 +20,7 @@
 import CogIcon from 'vue-material-design-icons/Cog.vue';
 import BookOpen from 'vue-material-design-icons/BookOpen.vue';
 import FolderHome from 'vue-material-design-icons/FolderHome.vue';
+import DeleteSweep from 'vue-material-design-icons/DeleteSweep.vue';
 
 export default {
   name: 'Sidebar',
@@ -24,6 +28,7 @@ export default {
     CogIcon,
     BookOpen,
     FolderHome,
+    DeleteSweep,
   },
   data() {
     return {};
@@ -31,6 +36,9 @@ export default {
   methods: {
     changeReadOnly() {
       this.$store.commit('setReadOnlyState');
+    },
+    setDeletingMode() {
+      this.$store.commit('setDeletingMode');
     },
   },
 };

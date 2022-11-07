@@ -98,6 +98,31 @@
   left: 25%
   border: none
 
-.delete-button:hover
-  color: #000000
+.folder-title-container
+  display: flex
+  flex-direction: row
+  align-items: center
+  justify-content: space-evenly
+
+
+.delete-button
+  color: #cc4f4e
   cursor: pointer
+
+.element:hover .delete-button
+  color: #ffffff
+
+.element:hover .delete-button:hover
+  color: #000000
+
+.delete-folder-button
+  padding: 10px 20px
+  background-color: #323234
+  cursor: pointer
+  color: #ffffff
+  text-transform: capitalize
+  font-family: "Font-Regular", sans-serif
+  border-radius: 15px
+
+.delete-folder-button:hover
+  background-color: #cc4f4e

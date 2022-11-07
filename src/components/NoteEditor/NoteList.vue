@@ -8,7 +8,10 @@
         </v-tab>
       </v-tabs>
     </div>
-    <p class="note-list-title">{{ notes.selectedFolder }}</p>
+    <div class="folder-title-container">
+      <span class="note-list-title">{{ notes.selectedFolder }}</span>
+      <span class="delete-folder-button" v-if="notes.isDeletingMode">Delete folder</span>
+    </div>
     <v-list class="card" lines="two">
       <v-list-item
           @click="updateDisplayInfo(item)"

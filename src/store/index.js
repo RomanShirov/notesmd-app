@@ -16,7 +16,7 @@ export default createStore({
     applicationState: {
       readOnlyMode: false,
       createNoteModalIsVisible: false,
-      isDeletingMode: true
+      isDeletingMode: true,
     },
 
     receivedFolderData: [],
@@ -50,6 +50,10 @@ export default createStore({
     },
     setReadOnlyState(state) {
       state.applicationState.readOnlyMode = !state.applicationState.readOnlyMode;
+    },
+
+    setDeletingMode(state) {
+      state.applicationState.isDeletingMode = !state.applicationState.isDeletingMode;
     },
 
     setModalVisibility(state) {
