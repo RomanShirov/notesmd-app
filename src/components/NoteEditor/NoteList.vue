@@ -1,17 +1,14 @@
 <template>
   <div class="list-container">
     <div class="note-list-header">
-      <v-tabs class="tab-list" v-model="notes.folders" background-color="red-lighten-2" height="50" hide-slider>
-        <v-tab class="tab rounded-lg" v-for="folder in notes.folders" :key="folder" :value="folder"
-               @click="updateSelectedFolder(folder)">
-          {{ folder }}
-        </v-tab>
-      </v-tabs>
+        <v-tabs class="tab-list" v-model="notes.folders" show-arrows background-color="red-lighten-2" height="50" hide-slider>
+          <v-tab class="tab rounded-lg" v-for="folder in notes.folders" :key="folder" :value="folder"
+                 @click="updateSelectedFolder(folder)">
+            {{ folder }}
+          </v-tab>
+        </v-tabs>
     </div>
-    <div class="folder-title-container">
-      <span class="note-list-title">{{ notes.selectedFolder }}</span>
-      <span class="delete-folder-button" v-if="notes.isDeletingMode">Delete folder</span>
-    </div>
+    <span class="note-list-title">{{ notes.selectedFolder }}</span>
     <v-list class="card" lines="two">
       <v-list-item
           @click="updateDisplayInfo(item)"
@@ -29,6 +26,7 @@
         class="create-note-btn"
         variant="outlined"
         size="large"
+        v-model="notes.selectedFolder"
         icon
         color="white"
         @click="createNote"
@@ -47,6 +45,7 @@ export default {
     };
   },
   beforeMount() {
+    this.$store.commit('loadFolderList');
     this.notes = this.$store.state.receivedFolderData;
     this.folders = this.$store.state.selectedObjectState.folders;
     this.selectedFolder = this.$store.state.selectedObjectState.selectedFolder;
@@ -68,7 +67,7 @@ export default {
     },
 
     deleteNote(item) {
-      console.log('deleteNote', item.id);
+      this.$store.commit('deleteNote', item.id);
     },
   },
   computed: {

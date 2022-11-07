@@ -8,15 +8,15 @@ export default createStore({
     },
 
     selectedObjectState: {
-      selectedFolder: 'C++',
+      selectedFolder: '',
       selectedNoteId: null,
-      folders: ['C++', 'Go'],
+      folders: [],
     },
 
     applicationState: {
       readOnlyMode: false,
       createNoteModalIsVisible: false,
-      isDeletingMode: true,
+      isDeletingMode: false,
     },
 
     receivedFolderData: [],
@@ -32,17 +32,24 @@ export default createStore({
     },
 
     setNotesByFolder(state, data) {
-      console.log('setNotesByFolder');
-      const requestUrl = `http://127.0.0.1:8000/api/notes/${data}`;
       const token = state.userInformation.jwtToken;
 
       state.selectedObjectState.selectedFolder = data;
 
-      axios.get(requestUrl, {headers: {Authorization: `Bearer ${token}`}}).
+      axios.get(`http://127.0.0.1:8000/api/notes/${data}`, {headers: {Authorization: `Bearer ${token}`}}).
           then((response) => {
             state.receivedFolderData = response.data;
 
           });
+    },
+
+    loadFolderList(state) {
+      const token = state.userInformation.jwtToken;
+      axios.get(`http://127.0.0.1:8000/api/folders`, {headers: {Authorization: `Bearer ${token}`}}).
+          then((response) => {
+            state.selectedObjectState.folders = response.data;
+            state.selectedObjectState.selectedFolder = state.selectedObjectState.folders[0];
+          })
     },
 
     setNoteId(state, data) {
@@ -72,12 +79,24 @@ export default createStore({
       state.editedNoteCache = data;
     },
 
+    deleteNote(state, payload) {
+      const id = payload;
+      const token = state.userInformation.jwtToken;
+
+      const idx = state.receivedFolderData.findIndex(note => note.id === id);
+      state.receivedFolderData.splice(idx, 1);
+      axios.delete(`http://127.0.0.1:8000/api/notes/${id}`,
+          {headers: {Authorization: `Bearer ${token}`}}).then(() => {
+      });
+    },
+
     synchronizeNote(state) {
       if (state.selectedObjectState.selectedNoteId) {
         const id = state.selectedObjectState.selectedNoteId;
         const data = state.editedNoteCache;
         const token = state.userInformation.jwtToken;
 
+        console.log("PATCH")
         axios.patch('http://127.0.0.1:8000/api/notes/', {
           'note_id': id,
           'data': data,
@@ -95,19 +114,16 @@ export default createStore({
       const folder = payload.folder;
       const token = state.userInformation.jwtToken;
 
-      console.log(title, folder);
-
       axios.put('http://127.0.0.1:8000/api/notes/', {
         'title': title,
         'folder': folder,
 
       }, {headers: {Authorization: `Bearer ${token}`}}).then((response) => {
-        console.log('RES:', response.data.folder);
-        console.log('RES DATA:', response.data.id);
-        console.log('LOCAL: ', folder);
         this.commit('setNotesByFolder', folder);
         state.selectedObjectState.selectedNoteId = response.data.id;
-        console.log(state.receivedFolderData);
+        if(state.selectedObjectState.folders.includes(folder) === false) {
+          state.selectedObjectState.folders.push(folder)
+        }
       });
     },
   },

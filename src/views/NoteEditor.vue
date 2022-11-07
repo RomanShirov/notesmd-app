@@ -25,12 +25,9 @@ export default {
     this.isLoading = true;
 
     const folder = this.$store.state.selectedObjectState.selectedFolder;
-    const requestUrl = `http://127.0.0.1:8000/api/notes/${folder}`;
     const token = this.$store.state.userInformation.jwtToken;
 
-    console.log('COMPONENT: ', requestUrl);
-
-    this.axios.get(requestUrl, {headers: {Authorization: `Bearer ${token}`}}).then((response) => {
+    this.axios.get(`http://127.0.0.1:8000/api/notes/${folder}`, {headers: {Authorization: `Bearer ${token}`}}).then((response) => {
       this.$store.commit('setFolderData', response.data);
     }).finally(() => {
       this.isLoading = false;

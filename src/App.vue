@@ -12,6 +12,9 @@ export default {
   data: () => ({
     //
   }),
+  beforeMount(){
+    this.$store.commit('loadFolderList');
+  },
   mounted() {
     setInterval(() => {
       this.$store.commit('synchronizeNote');
