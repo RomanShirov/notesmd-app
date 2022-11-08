@@ -44,8 +44,8 @@ export default {
       selectedNoteId: '',
     };
   },
+
   beforeMount() {
-    this.$store.commit('loadFolderList');
     this.notes = this.$store.state.receivedFolderData;
     this.folders = this.$store.state.selectedObjectState.folders;
     this.selectedFolder = this.$store.state.selectedObjectState.selectedFolder;

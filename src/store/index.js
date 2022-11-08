@@ -75,12 +75,12 @@ export default createStore({
     },
 
     loadFolderList(state) {
-      const token = state.userInformation.jwtToken;
       axios.get(`http://127.0.0.1:8000/api/folders`,
           {headers: {Authorization: `Bearer ${state.userInformation.jwtToken}`}}).
           then((response) => {
             state.selectedObjectState.folders = response.data;
             state.selectedObjectState.selectedFolder = state.selectedObjectState.folders[0];
+            this.commit('setNotesByFolder', state.selectedObjectState.selectedFolder)
           });
     },
 
@@ -158,6 +158,7 @@ export default createStore({
         router.push({path: '/'});
       });
     },
+
     logOut(state) {
       localStorage.removeItem('jwt_token');
       state.userInformation.jwtToken = null;
