@@ -1,5 +1,8 @@
 <template>
   <div class="sidebar">
+    <div class="icon" title="Log Out">
+      <exit-to-app class="icon" @click="logOut"></exit-to-app>
+    </div>
     <div class="icon" title="Settings">
       <cog-icon class="icon"></cog-icon>
     </div>
@@ -18,6 +21,8 @@ import CogIcon from 'vue-material-design-icons/Cog.vue';
 import BookOpen from 'vue-material-design-icons/BookOpen.vue';
 import FolderHome from 'vue-material-design-icons/FolderHome.vue';
 import DeleteSweep from 'vue-material-design-icons/DeleteSweep.vue';
+import ExitToApp from 'vue-material-design-icons/ExitToApp.vue';
+import router from '@/router';
 
 export default {
   name: 'Sidebar',
@@ -26,6 +31,8 @@ export default {
     BookOpen,
     FolderHome,
     DeleteSweep,
+    ExitToApp,
+
   },
   data() {
     return {};
@@ -37,6 +44,9 @@ export default {
     setDeletingMode() {
       this.$store.commit('setDeletingMode');
     },
+    logOut(){
+      this.$store.commit('logOut');
+    }
   },
 };
 </script>

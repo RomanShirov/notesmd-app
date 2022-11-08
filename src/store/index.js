@@ -35,7 +35,8 @@ export default createStore({
       if (token) {
         state.userInformation.jwtToken = token;
       }
-      return localStorage.getItem('jwt_token') || state.userInformation.jwtToken
+      return localStorage.getItem('jwt_token') ||
+          state.userInformation.jwtToken;
     },
   },
 
@@ -156,6 +157,11 @@ export default createStore({
           }).finally(() => {
         router.push({path: '/'});
       });
+    },
+    logOut(state) {
+      localStorage.removeItem('jwt_token');
+      state.userInformation.jwtToken = null;
+      window.location.reload();
     },
   },
   actions: {},
