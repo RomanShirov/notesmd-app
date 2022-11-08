@@ -11,8 +11,8 @@
   align-items: center
 
 .modal
-  width: 400px
-  height: 400px
+  width: 300px
+  height: 350px
   background-color: #1b1d1f
   box-shadow: 2px 2px 20px 1px
   border-radius: 15px
@@ -29,24 +29,31 @@
   flex-direction: column
   justify-content: center
   align-items: center
-  gap: 10px
+  gap: 20px
 
-.upload-button
-  margin-top: 30px
-  background-color: #cc4f4e
-  width: 300px
-  border-radius: 15px
+
+.input
+  width: 100%
+
+.cn-btn-group
+  display: flex
+  flex-direction: row
+  justify-content: center
+  align-items: center
+  width: 100%
+  gap: 30px
+
+.cn-btn
   color: #ffffff
-  text-transform: capitalize
-  font-family: "Font-Semibold", sans-serif
-
-.close-button
-  cursor: pointer
-
-.close-button:hover
-  color: #cc4f4e
-
-.modal-input
-  margin-top: 20px
-  width: 300px
+  background: #323234
   border-radius: 15px
+  height: 52px
+  padding-left: 32px
+  padding-right: 32px
+  font-size: 16px
+
+.cn-btn:hover
+  background: #cc4f4e
+
+.cn-btn:focus
+  outline: 4px solid #cc4f4e

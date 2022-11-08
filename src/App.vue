@@ -12,9 +12,6 @@ export default {
   data: () => ({
     //
   }),
-  beforeMount(){
-    this.$store.commit('loadFolderList');
-  },
   mounted() {
     setInterval(() => {
       this.$store.commit('synchronizeNote');
@@ -26,4 +23,5 @@ export default {
 <style lang="sass">
 @import '@/styles/Global'
 @import '@/styles/Container'
+@import '@/styles/Forms'
 </style>

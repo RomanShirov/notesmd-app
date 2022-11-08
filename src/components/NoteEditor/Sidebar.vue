@@ -6,9 +6,6 @@
     <div class="icon" title="Toggle Read-only mode">
       <book-open class="icon" title="Toggle Read-only mode" @click="changeReadOnly"></book-open>
     </div>
-    <div class="icon" title="Back to all notes" @click="this.$router.push('/overview')">
-      <folder-home class="icon"></folder-home>
-    </div>
     <div class="icon" title="Enable deleting mode" @click="setDeletingMode">
       <delete-sweep class="icon"></delete-sweep>
     </div>

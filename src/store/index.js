@@ -1,11 +1,12 @@
 import {createStore} from 'vuex';
 import axios from 'axios';
+import router from '@/router';
 
 export default createStore({
   state: {
     userInformation: {
       email: null,
-      jwtToken: '7|UN0ZlYi55MSYvksjOPZbNHe1C2k9AxF8OKnwWrNV',
+      jwtToken: null,
     },
 
     selectedObjectState: {
@@ -26,7 +27,12 @@ export default createStore({
 
   },
 
-  getters: {},
+  getters: {
+    isAuthenticated(state) {
+      return state.userInformation.jwtToken;
+    },
+  },
+
   mutations: {
     setFolderData(state, data) {
       state.receivedFolderData = data;
@@ -129,6 +135,18 @@ export default createStore({
               state.selectedObjectState.folders.push(folder);
             }
           });
+    },
+
+    authorizeUser(state, payload) {
+      const email = payload.email;
+      const password = payload.password;
+      let mode = payload.mode;
+
+      axios.post(`http://127.0.0.1:8000/api/${mode}?email=${email}&password=${password}`).then((response) => {
+        state.userInformation.jwtToken = response.data.access_token;
+        this.commit('loadFolderList');
+        router.push('/editor')
+      });
     },
   },
   actions: {},

@@ -1,4 +1,5 @@
 import {createRouter, createWebHashHistory} from 'vue-router';
+import store from "@/store";
 import Auth from '@/views/Auth';
 
 const routes = [
@@ -9,7 +10,7 @@ const routes = [
   },
   {
     path: '/editor',
-    name: 'editor',
+    name: 'Editor',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
@@ -22,6 +23,12 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
+});
+
+router.beforeEach(async (to, from) => {
+  if (!store.getters.isAuthenticated && to.name !== 'Auth') {
+    return {name: 'Auth'};
+  }
 });
 
 export default router;

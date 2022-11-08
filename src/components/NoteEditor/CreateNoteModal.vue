@@ -3,28 +3,12 @@
     <div class="modal">
       <div class="modal-content">
         <h1>Create note</h1>
-        <v-text-field
-            class="modal-input"
-            label="Title"
-            v-model="createRequest.title"
-            :rules="rules"
-            hide-details="auto"
-            theme="dark"
-            variant="solo"
-        ></v-text-field>
-        <v-text-field
-            class="modal-input"
-            label="Folder"
-            v-model="createRequest.folder"
-            :rules="rules"
-            hide-details="auto"
-            theme="dark"
-            variant="solo"
-        ></v-text-field>
-        <v-btn class="upload-button" size="large" @click="uploadNote">
-          Create
-        </v-btn>
-        <p class="close-button" @click="close">Close</p>
+        <input type="text" class="input" v-model="createRequest.title" placeholder="Title"/>
+        <input type="text" class="input" v-model="createRequest.folder" placeholder="Folder"/>
+        <div class="cn-btn-group">
+          <input type="button" class="cn-btn" value="Create" @click="uploadNote"/>
+          <input type="button" class="cn-btn" value="Close" @click="close"/>
+        </div>
       </div>
     </div>
   </div>
