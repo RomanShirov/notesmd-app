@@ -2,6 +2,8 @@ import {createStore} from 'vuex';
 import axios from 'axios';
 import router from '@/router';
 
+// ToDo: REFACTOR THIS SHIT
+
 export default createStore({
   state: {
     userInformation: {
@@ -29,7 +31,11 @@ export default createStore({
 
   getters: {
     isAuthenticated(state) {
-      return state.userInformation.jwtToken;
+      const token = localStorage.getItem('jwt_token');
+      if (token) {
+        state.userInformation.jwtToken = token;
+      }
+      return localStorage.getItem('jwt_token') || state.userInformation.jwtToken
     },
   },
 
@@ -58,8 +64,6 @@ export default createStore({
     },
 
     setNotesByFolder(state, data) {
-      const token = state.userInformation.jwtToken;
-
       state.selectedObjectState.selectedFolder = data;
 
       axios.get(`http://127.0.0.1:8000/api/notes/${data}`,
@@ -99,6 +103,7 @@ export default createStore({
     },
 
     synchronizeNote(state) {
+      // ToDo: Change single note sync to iterative sync all notes
       if (state.selectedObjectState.selectedNoteId) {
         const id = state.selectedObjectState.selectedNoteId;
         const data = state.editedNoteCache;
@@ -142,10 +147,14 @@ export default createStore({
       const password = payload.password;
       let mode = payload.mode;
 
-      axios.post(`http://127.0.0.1:8000/api/${mode}?email=${email}&password=${password}`).then((response) => {
-        state.userInformation.jwtToken = response.data.access_token;
-        this.commit('loadFolderList');
-        router.push('/editor')
+      axios.post(
+          `http://127.0.0.1:8000/api/${mode}?email=${email}&password=${password}`).
+          then((response) => {
+            const token = response.data.access_token;
+            state.userInformation.jwtToken = token;
+            localStorage.setItem('jwt_token', token);
+          }).finally(() => {
+        router.push({path: '/'});
       });
     },
   },

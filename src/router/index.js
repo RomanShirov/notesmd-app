@@ -4,12 +4,12 @@ import Auth from '@/views/Auth';
 
 const routes = [
   {
-    path: '/',
+    path: '/auth',
     name: 'Auth',
     component: Auth,
   },
   {
-    path: '/editor',
+    path: '/',
     name: 'Editor',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
@@ -29,6 +29,8 @@ router.beforeEach(async (to, from) => {
   if (!store.getters.isAuthenticated && to.name !== 'Auth') {
     return {name: 'Auth'};
   }
+  store.commit('loadFolderList')
 });
+
 
 export default router;

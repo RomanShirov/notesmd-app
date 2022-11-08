@@ -14,6 +14,8 @@
 </template>
 
 <script>
+import router from '@/router';
+
 export default {
   name: 'Auth',
   data() {
@@ -27,8 +29,11 @@ export default {
   },
   methods:{
     authUser(mode) {
+      console.log("Start auth")
       this.formData.mode = mode;
+      console.log("FORM: ", this.formData)
       this.$store.commit('authorizeUser', this.formData)
+      // this.$router.push('/')
     }
   }
 };
