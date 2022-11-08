@@ -80,7 +80,8 @@ export default createStore({
           then((response) => {
             state.selectedObjectState.folders = response.data;
             state.selectedObjectState.selectedFolder = state.selectedObjectState.folders[0];
-            this.commit('setNotesByFolder', state.selectedObjectState.selectedFolder)
+            this.commit('setNotesByFolder',
+                state.selectedObjectState.selectedFolder);
           });
     },
 
@@ -131,7 +132,6 @@ export default createStore({
       axios.put('http://127.0.0.1:8000/api/notes/', {
             'title': title,
             'folder': folder,
-
           },
           {headers: {Authorization: `Bearer ${state.userInformation.jwtToken}`}}).
           then((response) => {
