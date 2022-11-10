@@ -30,7 +30,6 @@ export default {
     authUser(mode) {
       this.formData.mode = mode;
       this.$store.commit('authorizeUser', this.formData)
-      // this.$router.push('/')
     }
   }
 };

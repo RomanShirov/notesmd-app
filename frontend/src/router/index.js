@@ -30,6 +30,7 @@ router.beforeEach((to, from) => {
 
 router.beforeEach(async (to, from) => {
   if (store.getters.isAuthenticated && to.name === 'Auth') {
+    store.commit('loadFolderList');
     return {name: 'Editor'};
   }
 });

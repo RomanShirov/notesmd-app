@@ -21,6 +21,7 @@ export default createStore({
       readOnlyMode: false,
       createNoteModalIsVisible: false,
       isDeletingMode: false,
+      synchronizeCache: null,
     },
 
     debugHostIp: 'http://93.157.251.207:8000',
@@ -67,7 +68,6 @@ export default createStore({
 
     setNotesByFolder(state, data) {
       state.selectedObjectState.selectedFolder = data;
-
       axios.get(`${state.debugHostIp}/api/notes/${data}`,
           {headers: {Authorization: `Bearer ${state.userInformation.jwtToken}`}}).
           then((response) => {
@@ -83,15 +83,18 @@ export default createStore({
             state.selectedObjectState.selectedFolder = state.selectedObjectState.folders[0];
             this.commit('setNotesByFolder',
                 state.selectedObjectState.selectedFolder);
-          });
+          }).finally(() => {
+        router.push({path: '/'});
+      });
     },
 
     updateNote(state, payload) {
       const id = payload.id;
       const data = payload.data;
       const idx = state.receivedFolderData.findIndex(note => note.id === id);
-      state.receivedFolderData[idx].data = data;
-      state.editedNoteCache = data;
+      if (payload.data !== '') {
+        state.receivedFolderData[idx].data = data;
+      }
     },
 
     deleteNote(state, payload) {
@@ -109,21 +112,25 @@ export default createStore({
       // ToDo: Change single note sync to iterative sync all notes
       if (state.selectedObjectState.selectedNoteId) {
         const id = state.selectedObjectState.selectedNoteId;
-        const data = state.editedNoteCache;
+        const idx = state.receivedFolderData.findIndex(note => note.id === id);
+        const data = state.receivedFolderData[idx].data;
 
-        console.log('PATCH');
-        axios.patch(`${state.debugHostIp}/api/notes/`, {
-              'note_id': id,
-              'data': data,
-            },
-            {headers: {Authorization: `Bearer ${state.userInformation.jwtToken}`}}).
-            then(() => {
-              state.isSynchronized = 'All changes saved';
-              setTimeout(() => {
-                state.isSynchronized = null;
-              }, 1000);
-            });
+        if (data !== state.applicationState.synchronizeCache) {
+          axios.patch(`${state.debugHostIp}/api/notes/`, {
+                'note_id': id,
+                'data': data,
+              },
+              {headers: {Authorization: `Bearer ${state.userInformation.jwtToken}`}}).
+              then(() => {
+                state.isSynchronized = 'All changes saved';
+                state.applicationState.synchronizeCache = data;
+                setTimeout(() => {
+                  state.isSynchronized = null;
+                }, 1000);
+              });
+        }
       }
+
     },
 
     uploadNote(state, payload) {
@@ -155,9 +162,8 @@ export default createStore({
             const token = response.data.access_token;
             state.userInformation.jwtToken = token;
             localStorage.setItem('jwt_token', token);
-          }).finally(() => {
-        router.push({path: '/'});
-      });
+            this.commit('loadFolderList');
+          });
     },
 
     logOut(state) {

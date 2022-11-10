@@ -1,5 +1,4 @@
 <template>
-<!--  <div v-if="isLoading" class="app-container"></div>-->
   <div class="app-container">
     <Sidebar/>
     <NoteList class="note-list"/>
@@ -16,37 +15,9 @@ import CreateNoteModal from '@/components/NoteEditor/CreateNoteModal';
 
 export default {
   name: 'NoteEditor',
-  data() {
-    return {
-      // isLoading: false,
-    };
-  },
-  beforeMount() {
-    // this.isLoading = true;
-    //
-    // const folder = this.foldersState.folders;
-    // const token = this.$store.state.userInformation.jwtToken;
-    //
-    // const connectionHostAddr = this.$store.state.debugHostIp;
-    //
-    // if (this.$store.state.userInformation.jwtToken){
-    //   this.axios.get(`${connectionHostAddr}/api/notes/${folder}`, {headers: {Authorization: `Bearer ${token}`}}).then((response) => {
-    //     this.$store.commit('setFolderData', response.data);
-    //   }).finally(() => {
-    //     this.isLoading = false;
-    //   });
-    // }
-
-  },
-
   computed: {
     isModalVisible() {
       return this.$store.state.applicationState.createNoteModalIsVisible;
-    },
-    foldersState() {
-      return {
-        folders: this.$store.state.selectedObjectState.folders,
-      };
     },
   },
 
