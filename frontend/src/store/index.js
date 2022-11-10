@@ -23,6 +23,7 @@ export default createStore({
       isDeletingMode: false,
     },
 
+    debugHostIp: 'http://93.157.251.207:8000',
     receivedFolderData: [],
     isSynchronized: null,
     editedNoteCache: '',
@@ -67,7 +68,7 @@ export default createStore({
     setNotesByFolder(state, data) {
       state.selectedObjectState.selectedFolder = data;
 
-      axios.get(`http://127.0.0.1:8000/api/notes/${data}`,
+      axios.get(`${state.debugHostIp}/api/notes/${data}`,
           {headers: {Authorization: `Bearer ${state.userInformation.jwtToken}`}}).
           then((response) => {
             state.receivedFolderData = response.data;
@@ -75,7 +76,7 @@ export default createStore({
     },
 
     loadFolderList(state) {
-      axios.get(`http://127.0.0.1:8000/api/folders`,
+      axios.get(`${state.debugHostIp}/api/folders`,
           {headers: {Authorization: `Bearer ${state.userInformation.jwtToken}`}}).
           then((response) => {
             state.selectedObjectState.folders = response.data;
@@ -98,7 +99,7 @@ export default createStore({
       const idx = state.receivedFolderData.findIndex(note => note.id === id);
 
       state.receivedFolderData.splice(idx, 1);
-      axios.delete(`http://127.0.0.1:8000/api/notes/${id}`,
+      axios.delete(`${state.debugHostIp}/api/notes/${id}`,
           {headers: {Authorization: `Bearer ${state.userInformation.jwtToken}`}}).
           then(() => {
           });
@@ -111,7 +112,7 @@ export default createStore({
         const data = state.editedNoteCache;
 
         console.log('PATCH');
-        axios.patch('http://127.0.0.1:8000/api/notes/', {
+        axios.patch(`${state.debugHostIp}/api/notes/`, {
               'note_id': id,
               'data': data,
             },
@@ -129,7 +130,7 @@ export default createStore({
       const title = payload.title;
       const folder = payload.folder;
 
-      axios.put('http://127.0.0.1:8000/api/notes/', {
+      axios.put(`${state.debugHostIp}/api/notes/`, {
             'title': title,
             'folder': folder,
           },
@@ -149,7 +150,7 @@ export default createStore({
       let mode = payload.mode;
 
       axios.post(
-          `http://127.0.0.1:8000/api/${mode}?email=${email}&password=${password}`).
+          `${state.debugHostIp}/api/${mode}?email=${email}&password=${password}`).
           then((response) => {
             const token = response.data.access_token;
             state.userInformation.jwtToken = token;
