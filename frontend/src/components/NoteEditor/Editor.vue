@@ -8,7 +8,7 @@
         v-model="currentNoteState"
         theme="dark"
         language="en-US"
-        toolbarsExclude="[github, mermaid, katex]"
+        toolbarsExclude="[github, mermaid, katex, prettier]"
         codeTheme="atom"
         :footers="footers"
         previewOnly="true"
@@ -24,9 +24,10 @@
         v-model="currentNoteState"
         theme="dark"
         language="en-US"
-        toolbarsExclude="[github, mermaid, katex]"
+        toolbarsExclude="github, mermaid, katex, prettier"
         codeTheme="atom"
         :footers="footers"
+        @on-save="save"
     >
       <template #defFooters>
         <span class="update-status">{{ isSynchronized }}</span>
@@ -53,6 +54,11 @@ export default {
       },
       footers: ['markdownTotal', 'scrollSwitch', 0],
     };
+  },
+  methods: {
+    save(){
+      this.$store.commit('synchronizeNote');
+    }
   },
   computed: {
     ...mapState(['receivedFolderData']),
