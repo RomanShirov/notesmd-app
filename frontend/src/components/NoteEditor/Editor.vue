@@ -7,10 +7,7 @@
         ref="editor"
         v-model="currentNoteState"
         theme="dark"
-        language="en-US"
-        toolbarsExclude="[github, mermaid, katex, prettier]"
         codeTheme="atom"
-        :footers="footers"
         previewOnly="true"
     >
       <template #defFooters>
@@ -55,10 +52,11 @@ export default {
       footers: ['markdownTotal', 'scrollSwitch', 0],
     };
   },
+  // ToDo: (???) Add image uploading
   methods: {
-    save(){
+    save() {
       this.$store.commit('synchronizeNote');
-    }
+    },
   },
   computed: {
     ...mapState(['receivedFolderData']),
