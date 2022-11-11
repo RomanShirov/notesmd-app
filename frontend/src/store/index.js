@@ -20,6 +20,7 @@ export default createStore({
     applicationState: {
       readOnlyMode: false,
       createNoteModalIsVisible: false,
+      mobileNoteListSelected: true,
       isDeletingMode: false,
       synchronizeCache: null,
     },
@@ -60,6 +61,10 @@ export default createStore({
 
     setModalVisibility(state) {
       state.applicationState.createNoteModalIsVisible = !state.applicationState.createNoteModalIsVisible;
+    },
+
+    setNoteListVisibility(state) {
+      state.applicationState.mobileNoteListSelected = !state.applicationState.mobileNoteListSelected;
     },
 
     selectFolder(state, data) {

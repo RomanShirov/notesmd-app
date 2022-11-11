@@ -1,12 +1,13 @@
 <template>
   <div class="list-container">
     <div class="note-list-header">
-        <v-tabs class="tab-list" v-model="notes.folders" show-arrows background-color="red-lighten-2" height="50" hide-slider>
-          <v-tab class="tab rounded-lg" v-for="folder in notes.folders" :key="folder" :value="folder"
-                 @click="updateSelectedFolder(folder)">
-            {{ folder }}
-          </v-tab>
-        </v-tabs>
+      <v-tabs class="tab-list" v-model="notes.folders" show-arrows background-color="red-lighten-2" height="50"
+              hide-slider>
+        <v-tab class="tab rounded-lg" v-for="folder in notes.folders" :key="folder" :value="folder"
+               @click="updateSelectedFolder(folder)">
+          {{ folder }}
+        </v-tab>
+      </v-tabs>
     </div>
     <span class="note-list-title">{{ notes.selectedFolder }}</span>
     <v-list class="card" lines="two">
@@ -41,6 +42,7 @@ export default {
   name: 'NoteList',
   data() {
     return {
+      buttonOffset: 500,
       selectedNoteId: '',
     };
   },
@@ -55,6 +57,7 @@ export default {
     updateDisplayInfo(item) {
       this.selectedNoteId = item.id;
       this.$store.commit('setNoteId', this.selectedNoteId);
+      this.$store.commit('setNoteListVisibility');
     },
 
     updateSelectedFolder(item) {
@@ -68,6 +71,9 @@ export default {
 
     deleteNote(item) {
       this.$store.commit('deleteNote', item.id);
+    },
+    getButtonOffset() {
+      return window.innerHeight - 100;
     },
   },
   computed: {

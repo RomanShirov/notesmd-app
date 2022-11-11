@@ -2,7 +2,7 @@
   <div class="modal-backdrop">
     <div class="modal">
       <div class="modal-content">
-        <h1>Create note</h1>
+        <h1 class="cn-title">Create note</h1>
         <input type="text" class="input" v-model="createRequest.title" placeholder="Title"/>
         <input type="text" class="input" v-model="createRequest.folder" placeholder="Folder"/>
         <div class="cn-btn-group">
