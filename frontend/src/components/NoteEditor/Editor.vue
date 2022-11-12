@@ -1,8 +1,13 @@
 <template>
   <div class="editor-container">
     <!--Duplicate components, because previewOnly=false not working-->
+    <NoData
+        v-if="!$store.state.selectedObjectState?.selectedNoteId"
+        :text="'Select a note'"
+    />
+    <!--V-if - change-->
     <md-editor
-        v-if="isReadOnly"
+        v-else-if="$store.getters['isReadOnly']"
         class="editor readonly"
         ref="editor"
         v-model="currentNoteState"
@@ -11,7 +16,7 @@
         previewOnly="true"
     >
       <template #defFooters>
-        <span class="update-status">{{ isSynchronized }}</span>
+        <span class="update-status">{{ $store.getters['isSynchronized'] }}</span>
       </template>
     </md-editor>
     <md-editor
@@ -24,10 +29,10 @@
         toolbarsExclude="github, mermaid, katex, prettier"
         codeTheme="atom"
         :footers="footers"
-        @on-save="save"
+        @on-save="$store.commit('synchronizeNote')"
     >
       <template #defFooters>
-        <span class="update-status">{{ isSynchronized }}</span>
+        <span class="update-status">{{ $store.getters['isSynchronized'] }}</span>
       </template>
     </md-editor>
   </div>
@@ -37,10 +42,12 @@
 import MdEditor from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
 import {mapState} from 'vuex';
+import NoData from "@/components/Blocks/NoData";
 
 export default {
   name: 'Editor',
   components: {
+    NoData,
     MdEditor,
   },
   data() {
@@ -53,18 +60,8 @@ export default {
     };
   },
   // ToDo: (???) Add image uploading
-  methods: {
-    save() {
-      this.$store.commit('synchronizeNote');
-    },
-  },
   computed: {
     ...mapState(['receivedFolderData']),
-
-    isSynchronized() {
-      return this.$store.state.isSynchronized;
-    },
-
     currentNoteState: {
       get() {
         const result = this.receivedFolderData.find(
@@ -78,10 +75,6 @@ export default {
         this.note.data = value;
         this.$store.commit('updateNote', this.note);
       },
-    },
-
-    isReadOnly() {
-      return this.$store.state.applicationState.readOnlyMode;
     },
   },
 };

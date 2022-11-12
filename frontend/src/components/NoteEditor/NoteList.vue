@@ -3,13 +3,19 @@
     <div class="note-list-header">
       <v-tabs class="tab-list" v-model="notes.folders" show-arrows background-color="red-lighten-2" height="50"
               hide-slider>
-        <v-tab class="tab rounded-lg" v-for="folder in notes.folders" :key="folder" :value="folder"
+        <v-tab class="tab rounded-lg" v-if="$store.getters['lengthFolders'] <= 0"
+               @click="$store.commit('setModalVisibility')">
+          Create Tab
+        </v-tab>
+        <v-tab class="tab rounded-lg"
+               v-show="notes.folders.length >= 0"
+               v-for="folder in $store.getters['tabList']" :key="folder" :value="folder"
                @click="updateSelectedFolder(folder)">
           {{ folder }}
         </v-tab>
       </v-tabs>
     </div>
-    <span class="note-list-title">{{ notes.selectedFolder }}</span>
+    <span class="note-list-title" v-if="$store.getters['lengthFolders'] > 0">{{ notes.selectedFolder }}</span>
     <v-list class="card" lines="two">
       <v-list-item
           @click="updateDisplayInfo(item)"
@@ -30,7 +36,7 @@
         v-model="notes.selectedFolder"
         icon
         color="white"
-        @click="createNote"
+        @click="$store.commit('setModalVisibility')"
     >
       <v-icon>mdi-pencil</v-icon>
     </v-btn>
@@ -38,6 +44,7 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 export default {
   name: 'NoteList',
   data() {
@@ -46,45 +53,32 @@ export default {
       selectedNoteId: '',
     };
   },
-
-  beforeMount() {
-    this.notes = this.$store.state.receivedFolderData;
-    this.folders = this.$store.state.selectedObjectState.folders;
-    this.selectedFolder = this.$store.state.selectedObjectState.selectedFolder;
-  },
-
   methods: {
     updateDisplayInfo(item) {
       this.selectedNoteId = item.id;
       this.$store.commit('setNoteId', this.selectedNoteId);
       this.$store.commit('setNoteListVisibility');
     },
-
     updateSelectedFolder(item) {
       this.$store.commit('selectFolder', item);
       this.$store.commit('setNotesByFolder', item);
     },
-
-    createNote() {
-      this.$store.commit('setModalVisibility');
-    },
-
     deleteNote(item) {
       this.$store.commit('deleteNote', item.id);
+      if (this.notes.notes.length === 0) {
+        this.$store.commit('setSelectedObjectState', {
+          selectedFolder: [],
+          selectedNoteId: null, // For the stub
+          folders: this.notes.folders.filter((item) => item !== this.notes.selectedFolder),
+        })
+      }
     },
     getButtonOffset() {
       return window.innerHeight - 100;
     },
   },
   computed: {
-    notes() {
-      return {
-        notes: this.$store.state.receivedFolderData,
-        folders: this.$store.state.selectedObjectState.folders,
-        selectedFolder: this.$store.state.selectedObjectState.selectedFolder,
-        isDeletingMode: this.$store.state.applicationState.isDeletingMode,
-      };
-    },
+    ...mapGetters(['notes']),
   },
 };
 </script>
