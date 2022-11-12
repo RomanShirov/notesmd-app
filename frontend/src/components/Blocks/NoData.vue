@@ -1,17 +1,17 @@
 <template>
-<div class="data-info"> {{ text }}</div>
+  <div class="data-info"> {{ text }}</div>
 </template>
 
 <script>
 export default {
-  name: "NoData",
+  name: 'NoData',
   props: {
     text: {
       type: String,
-      default: () => 'No Data'
-    }
-  }
-}
+      default: () => 'No Data',
+    },
+  },
+};
 </script>
 
 <style scoped>
