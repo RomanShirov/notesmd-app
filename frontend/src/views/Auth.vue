@@ -3,7 +3,7 @@
     <div class="auth-container">
       <h1 class="auth-title">Introduction</h1>
       <input type="text" class="input" v-model="formData.email" placeholder="E-Mail"/>
-      <input type="password" class="input" v-model="formData.password" placeholder="Password"/>
+      <input type="password" class="input" @keyup.enter="authUser('login')" v-model="formData.password" placeholder="Password"/>
       <div class="login-btn-group">
         <input type="button" class="login-btn" value="Login" @keyup.enter="authUser('login')" @click="authUser('login')"/>
         <span class="btn-between">or</span>
