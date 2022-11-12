@@ -4,10 +4,10 @@
       <div class="modal-content">
         <h1 class="cn-title">Create note</h1>
         <input type="text" class="input" v-model="createRequest.title" placeholder="Title"/>
-        <input type="text" class="input" v-model="createRequest.folder" placeholder="Folder"/>
+        <input type="text" class="input" @keyup.enter="uploadNote" v-model="createRequest.folder" placeholder="Folder"/>
         <div class="cn-btn-group">
           <input type="button" class="cn-btn" value="Create" @click="uploadNote"/>
-          <input type="button" class="cn-btn" value="Close" @click="close"/>
+          <input type="button" class="cn-btn" value="Close" @click="$store.commit('setModalVisibility');"/>
         </div>
       </div>
     </div>
@@ -22,15 +22,8 @@ export default {
       title: '',
       folder: '',
     },
-    rules: [
-      value => !!value || 'Title required',
-      value => (value && value.length <= 32) || 'Max 32 characters',
-    ],
   }),
   methods: {
-    close() {
-      this.$store.commit('setModalVisibility');
-    },
     uploadNote() {
       this.$store.commit('uploadNote', this.createRequest);
       this.$store.commit('setModalVisibility');

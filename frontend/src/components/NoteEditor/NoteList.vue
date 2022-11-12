@@ -5,7 +5,7 @@
               hide-slider>
         <v-tab class="tab rounded-lg" v-if="$store.getters['lengthFolders'] <= 0"
                @click="$store.commit('setModalVisibility')">
-          Create Tab
+          Create note
         </v-tab>
         <v-tab class="tab rounded-lg"
                v-show="notes.folders.length >= 0"
@@ -15,7 +15,7 @@
         </v-tab>
       </v-tabs>
     </div>
-    <span class="note-list-title" v-if="$store.getters['lengthFolders'] > 0">{{ notes.selectedFolder }}</span>
+    <span class="note-list-title" v-if="$store.getters['lengthFolders']> 0">{{ notes.selectedFolder }}</span>
     <v-list class="card" lines="two">
       <v-list-item
           @click="updateDisplayInfo(item)"
@@ -44,7 +44,8 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters} from 'vuex';
+
 export default {
   name: 'NoteList',
   data() {
@@ -70,7 +71,7 @@ export default {
           selectedFolder: [],
           selectedNoteId: null, // For the stub
           folders: this.notes.folders.filter((item) => item !== this.notes.selectedFolder),
-        })
+        });
       }
     },
     getButtonOffset() {

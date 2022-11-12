@@ -2,8 +2,9 @@
   <div class="editor-container">
     <!--Duplicate components, because previewOnly=false not working-->
     <NoData
+        class="nodata"
         v-if="!$store.state.selectedObjectState?.selectedNoteId"
-        :text="'Select a note'"
+        :text="'Select or create note'"
     />
     <!--V-if - change-->
     <md-editor
@@ -42,7 +43,7 @@
 import MdEditor from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
 import {mapState} from 'vuex';
-import NoData from "@/components/Blocks/NoData";
+import NoData from '@/components/Blocks/NoData';
 
 export default {
   name: 'Editor',

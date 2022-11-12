@@ -1,25 +1,26 @@
 export default () => ({
-	userInformation: {
-		email: null,
-		jwtToken: null,
-	},
+  userInformation: {
+    email: null,
+    jwtToken: null,
+  },
 
-	selectedObjectState: {
-		selectedFolder: [],
-		selectedNoteId: null,
-		folders: [],
-	},
+  selectedObjectState: {
+    selectedFolder: null,
+    selectedNoteId: null,
+    folders: [] || "None",
+  },
 
-	applicationState: {
-		readOnlyMode: false,
-		createNoteModalIsVisible: false,
-		mobileNoteListSelected: true,
-		isDeletingMode: false,
-		synchronizeCache: null,
-	},
+  applicationState: {
+    readOnlyMode: false,
+    createNoteModalIsVisible: false,
+    mobileNoteListSelected: true,
+    isDeletingMode: false,
+    synchronizeCache: null,
+  },
 
-	receivedFolderData: [],
-	isSynchronized: null,
-	editedNoteCache: '',
+  serverIpAddr: process.env.VUE_APP_IP || "http://93.157.251.207:8000",
+  receivedFolderData: [],
+  isSynchronized: null,
+  editedNoteCache: '',
 
 })
