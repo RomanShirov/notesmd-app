@@ -85,9 +85,6 @@ export default {
         isDeletingMode: this.$store.state.applicationState.isDeletingMode,
       };
     },
-    getFolders() {
-      return this.folders;
-    },
   },
 };
 </script>
