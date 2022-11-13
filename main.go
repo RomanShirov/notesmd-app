@@ -15,7 +15,7 @@ func main() {
 	app := NewApp()
 
 	err := wails.Run(&options.App{
-		Title:    "Notes",
+		Title:    "Notes.MD",
 		MinWidth: 800,
 		Width:    1366,
 		Height:   768,

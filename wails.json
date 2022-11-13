@@ -1,13 +1,13 @@
 {
   "$schema": "https://wails.io/schemas/config.v2.json",
-  "name": "notes-app",
-  "outputfilename": "notes-app",
+  "name": "Notes.MD",
+  "outputfilename": "notes_md",
   "frontend:install": "npm install",
   "frontend:build": "npm run build",
   "frontend:dev:watcher": "npm run dev",
   "frontend:dev:serverUrl": "auto",
   "author": {
-    "name": "RomanShirov",
+    "name": "Roman Shirov",
     "email": "RomanShirov.dev@yandex.ru"
   }
 }
