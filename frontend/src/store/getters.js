@@ -6,7 +6,7 @@ export const isSynchronized = (state) => {
   return state.isSynchronized;
 };
 
-export const isSelectedFolder = (state) => {
+export const selectedFolder = (state) => {
   return state.selectedObjectState.selectedFolder;
 };
 

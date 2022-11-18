@@ -9,6 +9,7 @@
         </v-tab>
         <v-tab class="tab rounded-lg"
                v-show="notes.folders.length >= 0"
+               :class="{ 'item-selected': folder === $store.getters['selectedFolder'] }"
                v-for="folder in $store.getters['tabList']" :key="folder" :value="folder"
                @click="updateSelectedFolder(folder)">
           {{ folder }}
@@ -20,6 +21,7 @@
       <v-list-item
           @click="updateDisplayInfo(item)"
           class="element"
+          :class="{ 'item-selected': item.id === selectedNoteId }"
           v-for="item in notes.notes"
           :key="item.id"
           :title="item.title"
@@ -50,6 +52,7 @@ export default {
   name: 'NoteList',
   data() {
     return {
+      isSelectedClass: true,
       buttonOffset: 500,
       selectedNoteId: '',
     };
