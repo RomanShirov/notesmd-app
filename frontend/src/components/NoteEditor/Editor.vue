@@ -13,6 +13,7 @@
         ref="editor"
         v-model="currentNoteState"
         theme="dark"
+        language="en-US"
         codeTheme="atom"
         previewOnly="true"
     >
