@@ -18,7 +18,7 @@ export default () => ({
     synchronizeCache: null,
   },
 
-  serverIpAddr: process.env.VUE_APP_IP || "http://93.157.251.207:8000",
+  serverIpAddr: process.env.VUE_APP_IP || "http://93.157.251.207:8080",
   receivedFolderData: [],
   isSynchronized: null,
   editedNoteCache: '',
