@@ -33,6 +33,7 @@
     </v-list>
     <v-btn
         class="create-note-btn"
+        title="Create a new note"
         variant="outlined"
         size="large"
         v-model="notes.selectedFolder"
