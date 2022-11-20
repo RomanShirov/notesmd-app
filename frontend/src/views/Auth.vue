@@ -2,7 +2,7 @@
   <div class="app-container">
     <div class="auth-container">
       <h1 class="auth-title">Introduction</h1>
-      <input type="text" class="input" v-model="formData.email" placeholder="E-Mail"/>
+      <input type="text" class="input" v-model="formData.username" placeholder="Username"/>
       <input type="password" class="input" @keyup.enter="authUser('login')" v-model="formData.password"
              placeholder="Password"/>
       <div class="login-btn-group">
@@ -23,7 +23,7 @@ export default {
   data() {
     return {
       formData: {
-        email: '',
+        username: '',
         password: '',
         mode: '',
       },

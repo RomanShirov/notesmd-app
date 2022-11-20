@@ -2,6 +2,7 @@ import {createRouter, createWebHistory} from 'vue-router';
 import store from '@/store';
 import Auth from '@/views/Auth';
 import NoteEditor from '@/views/NoteEditor';
+import PublishedPage from '@/views/PublishedPage';
 
 const routes = [
   {
@@ -14,6 +15,11 @@ const routes = [
     name: 'Editor',
     component: NoteEditor,
   },
+  {
+    path: '/page/:user/:id',
+    name: 'Page',
+    component: PublishedPage,
+  },
 ];
 
 const router = createRouter({
@@ -22,11 +28,12 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from) => {
-  if (!store.getters.isAuthenticated && to.name !== 'Auth') {
+  if (!store.getters.isAuthenticated && to.name !== 'Auth' && to.name !==
+      'Page') {
     return {name: 'Auth'};
   }
 
-  if (store.state.userInformation.jwtToken) {
+  if (store.state.userInformation.jwtToken && to.name !== 'Page') {
     store.commit('loadFolderList');
   }
 });

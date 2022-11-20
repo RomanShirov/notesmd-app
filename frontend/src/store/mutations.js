@@ -126,12 +126,12 @@ export function uploadNote(state, payload) {
 }
 
 export function authorizeUser(state, payload) {
-  const email = payload.email;
+  const username = payload.username;
   const password = payload.password;
   let mode = payload.mode;
 
   axios.post(
-      `${state.serverIpAddr}/api/${mode}?email=${email}&password=${password}`).
+      `${state.serverIpAddr}/api/${mode}?username=${username}&password=${password}`).
       then((response) => {
         const token = response.data.access_token;
         state.userInformation.jwtToken = token;
