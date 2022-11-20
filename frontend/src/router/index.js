@@ -2,7 +2,7 @@ import {createRouter, createWebHistory} from 'vue-router';
 import store from '@/store';
 import Auth from '@/views/Auth';
 import NoteEditor from '@/views/NoteEditor';
-import PublishedPage from '@/views/PublishedPage';
+import SharedPage from '@/views/SharedPage';
 
 const routes = [
   {
@@ -16,9 +16,9 @@ const routes = [
     component: NoteEditor,
   },
   {
-    path: '/page/:user/:id',
-    name: 'Page',
-    component: PublishedPage,
+    path: '/shared/:user/:noteSharedId',
+    name: 'SharedPage',
+    component: SharedPage,
   },
 ];
 
@@ -29,11 +29,11 @@ const router = createRouter({
 
 router.beforeEach((to, from) => {
   if (!store.getters.isAuthenticated && to.name !== 'Auth' && to.name !==
-      'Page') {
+      'SharedPage') {
     return {name: 'Auth'};
   }
 
-  if (store.state.userInformation.jwtToken && to.name !== 'Page') {
+  if (store.state.userInformation.jwtToken && to.name !== 'SharedPage') {
     store.commit('loadFolderList');
   }
 });
