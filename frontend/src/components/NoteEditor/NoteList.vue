@@ -81,14 +81,17 @@ export default {
       }
     },
     shareNote(item) {
-      axios.put(`${this.$store.state.serverIpAddr}/api/notes/share/${item.id}`,
+      console.log("IP:", this.$store.state.serverIpAddr)
+      console.log("TOKEN:", this.$store.state.userInformation.jwtToken)
+
+      axios.put(`${this.$store.state.serverIpAddr}/api/notes/share/${item.id}`, "",
           {headers: {Authorization: `Bearer ${this.$store.state.userInformation.jwtToken}`}}).
           then((response) => {
             const sharedURL = response.data.public_url;
-            console.log(sharedURL)
+            this.$store.commit('updateSharedNoteURL', sharedURL);
+            this.$store.commit('setSharedModalVisibility');
           });
 
-      this.$store.commit('setSharedModalVisibility');
     },
     getButtonOffset() {
       return window.innerHeight - 100;

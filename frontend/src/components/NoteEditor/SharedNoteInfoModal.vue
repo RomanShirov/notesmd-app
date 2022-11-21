@@ -5,11 +5,11 @@
         <h3 class="cn-title">Note published</h3>
         <div class="cn-btn-group">
           <div class="shared-link-container">
-            <span class="shared-link-success-title">Copy Link:</span>
-            <span class="shared-link">http://notes.glck.org/shared/kitten/zxc13Ju78t76</span>
+            <span class="shared-link">{{sharedNoteURL.substr(0, 36)}}</span>
+            <input type="button" class="shared-link-success-title" @click="copySharedLink" value="Copy link"/>
           </div>
-          <input type="button" class="cn-btn" value="Close" @click="$store.commit('setSharedModalVisibility');"/>
         </div>
+        <input type="button" class="cn-btn" value="Close" @click="$store.commit('setSharedModalVisibility');"/>
       </div>
     </div>
   </div>
@@ -18,21 +18,15 @@
 <script>
 export default {
   name: 'SharedNoteInfoModal',
-  data: () => ({
-    createRequest: {
-      title: '',
-      folder: '',
-    },
-  }),
+  data: () => ({}),
   methods: {
-    uploadNote() {
-      this.$store.commit('uploadNote', this.createRequest);
-      this.$store.commit('setModalVisibility');
-    },
+    copySharedLink(){
+      navigator.clipboard.writeText(this.sharedNoteURL);
+    }
   },
   computed: {
-    folders() {
-      return this.$store.state.selectedObjectState.folders;
+    sharedNoteURL() {
+      return this.$store.state.selectedObjectState.sharedNoteURL;
     },
   },
 };

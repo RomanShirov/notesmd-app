@@ -25,12 +25,16 @@ export function setDeletingMode(state) {
 
 }
 
+export function updateSharedNoteURL(state, payload) {
+  state.selectedObjectState.sharedNoteURL = payload
+}
+
+
 export function setNoteSharingMode(state) {
   if(state.applicationState.isDeletingMode){
     state.applicationState.isDeletingMode = false
   }
   state.applicationState.noteSharingMode = !state.applicationState.noteSharingMode;
-
 }
 
 export function setSharedModalVisibility(state) {
