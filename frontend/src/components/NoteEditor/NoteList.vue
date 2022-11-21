@@ -27,7 +27,8 @@
           :title="item.title"
           :subtitle="item.data"
       >
-        <span class="delete-button" v-if="notes.isDeletingMode" @click="deleteNote(item)">Delete</span>
+        <span class="action-button delete" v-if="notes.isDeletingMode" @click="deleteNote(item)">Delete</span>
+        <span class="action-button share" v-if="notes.isNoteSharingMode" @click="shareNote(item)">Share</span>
       </v-list-item>
 
     </v-list>
@@ -48,6 +49,7 @@
 
 <script>
 import {mapGetters} from 'vuex';
+import axios from 'axios'
 
 export default {
   name: 'NoteList',
@@ -77,6 +79,16 @@ export default {
           folders: this.notes.folders.filter((item) => item !== this.notes.selectedFolder),
         });
       }
+    },
+    shareNote(item) {
+      axios.put(`${this.$store.state.serverIpAddr}/api/notes/share/${item.id}`,
+          {headers: {Authorization: `Bearer ${this.$store.state.userInformation.jwtToken}`}}).
+          then((response) => {
+            const sharedURL = response.data.public_url;
+            console.log(sharedURL)
+          });
+
+      this.$store.commit('setSharedModalVisibility');
     },
     getButtonOffset() {
       return window.innerHeight - 100;

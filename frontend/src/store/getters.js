@@ -16,6 +16,7 @@ export const notes = (state) => {
     folders: state.selectedObjectState.folders,
     selectedFolder: state.selectedObjectState.selectedFolder,
     isDeletingMode: state.applicationState.isDeletingMode,
+    isNoteSharingMode: state.applicationState.noteSharingMode,
   };
 };
 export const lengthFolders = (state) => {

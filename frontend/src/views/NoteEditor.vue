@@ -4,12 +4,14 @@
     <NoteList class="note-list readmode"/>
     <Editor class="note-editor"/>
     <CreateNoteModal v-if="isModalVisible"/>
+    <SharedNoteInfoModal v-if="isSharingModalVisible"/>
   </div>
   <div v-else class="mob-app-container">
     <Sidebar class="mob-sidebar"/>
     <NoteList v-if="!isNoteListSelected" class="mob-note-list"/>
     <Editor v-else class="mob-note-editor"/>
     <CreateNoteModal v-if="isModalVisible"/>
+    <SharedNoteInfoModal v-if="isSharingModalVisible"/>
   </div>
 </template>
 
@@ -18,12 +20,16 @@ import Sidebar from '@/components/NoteEditor/Sidebar';
 import NoteList from '@/components/NoteEditor/NoteList';
 import Editor from '@/components/NoteEditor/Editor';
 import CreateNoteModal from '@/components/NoteEditor/CreateNoteModal';
+import SharedNoteInfoModal from '@/components/NoteEditor/SharedNoteInfoModal';
 
 import {isMobileDevice} from '@/utils/mobileChecker';
 
 export default {
   name: 'NoteEditor',
   computed: {
+    isSharingModalVisible() {
+      return this.$store.state.applicationState.sharedNoteModalIsVisible;
+    },
     isModalVisible() {
       return this.$store.state.applicationState.createNoteModalIsVisible;
     },
@@ -43,6 +49,7 @@ export default {
     NoteList,
     Editor,
     CreateNoteModal,
+    SharedNoteInfoModal,
   },
 };
 </script>

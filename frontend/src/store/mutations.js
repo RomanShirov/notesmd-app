@@ -18,7 +18,23 @@ export function setReadOnlyState(state) {
 }
 
 export function setDeletingMode(state) {
+  if(state.applicationState.noteSharingMode){
+    state.applicationState.noteSharingMode = false
+  }
   state.applicationState.isDeletingMode = !state.applicationState.isDeletingMode;
+
+}
+
+export function setNoteSharingMode(state) {
+  if(state.applicationState.isDeletingMode){
+    state.applicationState.isDeletingMode = false
+  }
+  state.applicationState.noteSharingMode = !state.applicationState.noteSharingMode;
+
+}
+
+export function setSharedModalVisibility(state) {
+  state.applicationState.sharedNoteModalIsVisible = !state.applicationState.sharedNoteModalIsVisible;
 }
 
 export function setModalVisibility(state) {
