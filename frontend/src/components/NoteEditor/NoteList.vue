@@ -84,7 +84,7 @@ export default {
       console.log("IP:", this.$store.state.serverIpAddr)
       console.log("TOKEN:", this.$store.state.userInformation.jwtToken)
 
-      axios.put(`${this.$store.state.serverIpAddr}/api/notes/share/${item.id}`, "",
+      axios.put(`${this.$store.state.serverIpAddr}/api/notes/shared/${item.id}`, "",
           {headers: {Authorization: `Bearer ${this.$store.state.userInformation.jwtToken}`}}).
           then((response) => {
             const sharedURL = response.data.public_url;
