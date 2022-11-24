@@ -1,19 +1,34 @@
-# README
+# NotesMD
+NotesMD - Open Source and free Markdown editor. Available on web & desktop (unstable) for Windows and Linux. Writed on Go Wails and Vue.js.
 
-## About
+## Features
+* Markdown notes
+* Folders
+* Sharing a note by public link
 
-This is the official Wails Vue template.
+Right now the public server is down, but you can use your own server to host the app. To do this, see the instructions for the [back-end service repository](https://github.com/RomanShirov/notesmd-service).
 
-You can configure the project by editing `wails.json`. More information about the project settings can be found
-here: https://wails.io/docs/reference/project-config
+![](https://user-images.githubusercontent.com/47012273/203850928-7a92997a-df9d-436b-8713-b9a468c3b561.png)
 
-## Live Development
+##  Build desktop
 
-To run in live development mode, run `wails dev` in the project directory. This will run a Vite development
-server that will provide very fast hot reload of your frontend changes. If you want to develop in a browser
-and have access to your Go methods, there is also a dev server that runs on http://localhost:34115. Connect
-to this in your browser, and you can call your Go code from devtools.
+Because the desktop version uses Firefox and WebKit, application may be unstable, not authorizing accounts, loading data etc.
 
-## Building
+Build Desktop version:
 
-To build a redistributable, production mode package, use `wails build`.
+* Install Go (1.18 or newer)
+* Install Wails: `go install github.com/wailsapp/wails/v2/cmd/wails@latest`
+* Build the application: (for build Windows version: use ` windows/amd64` instead Linux)
+
+```sh
+git clone https://github.com/RomanShirov/notesmd-app
+cd notesmd-app
+wails build linux
+cd build/bin &&
+./notes_md
+```
+
+## Known issues
+* Application may not loading data in Desktop version
+* Can't change note title
+* Active «Share» button on already shared note
