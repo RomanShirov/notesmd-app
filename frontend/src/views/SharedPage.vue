@@ -16,27 +16,25 @@
 import MdEditor from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
 import axios from 'axios';
-import router from '@/router';
 
 export default {
   name: 'SharedPage',
   components: {
     MdEditor,
   },
-  data(){
-    return{
-      user: this.$route.params.user,
-      noteId: this.$route.params.noteId,
-      data: ''
-    }
+  data() {
+    return {
+      data: null,
+    };
   },
   beforeMount() {
     axios.get(`${this.$store.state.serverIpAddr}/api/notes/shared/${this.$route.params.noteId}`).
         then((response) => {
-          document.title = response.data.title + ' — ' + this.$route.params.user
-          this.data = response.data.data;
-        })
-  }
+          const title = response.data.title;
+          document.title = title + ' — ' + this.$route.params.user;
+          this.data = `# ${title} \n` + response.data.data;
+        });
+  },
 };
 </script>
 
