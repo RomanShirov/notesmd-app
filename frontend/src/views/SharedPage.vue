@@ -15,6 +15,8 @@
 <script>
 import MdEditor from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
+import axios from 'axios';
+import router from '@/router';
 
 export default {
   name: 'SharedPage',
@@ -24,11 +26,17 @@ export default {
   data(){
     return{
       user: this.$route.params.user,
-      noteSharedId: this.$route.params.noteSharedId,
-      title: '',
-      data: '# Title\n' + `#### Published by ${this.$route.params.user} \n`
+      noteId: this.$route.params.noteId,
+      data: ''
     }
   },
+  beforeMount() {
+    axios.get(`${this.$store.state.serverIpAddr}/api/notes/shared/${this.$route.params.noteId}`).
+        then((response) => {
+          document.title = response.data.title + ' — ' + this.$route.params.user
+          this.data = response.data.data;
+        })
+  }
 };
 </script>
 
@@ -40,6 +48,6 @@ export default {
 
 .editor
   padding: 0 0 0 50px
-  border-radius: 15px
-  width: 50%
+  height: 100%
+  width: 100%
 </style>

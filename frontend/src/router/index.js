@@ -16,7 +16,7 @@ const routes = [
     component: NoteEditor,
   },
   {
-    path: '/shared/:user/:noteSharedId',
+    path: '/shared/:user/:noteId',
     name: 'SharedPage',
     component: SharedPage,
   },
