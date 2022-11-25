@@ -48,4 +48,12 @@ export default {
   padding: 0 0 0 50px
   height: 100%
   width: 100%
+
+@media (max-width: 768px)
+  .app-container
+    width: 100%
+
+  .editor
+    font-size: 16px
+    padding: 0 0 0 10px
 </style>
