@@ -21,7 +21,7 @@ export default {
   data: () => ({}),
   methods: {
     copySharedLink(){
-      navigator.clipboard.writeText(this.sharedNoteURL);
+      window.navigator.clipboard.writeText(this.sharedNoteURL)
     }
   },
   computed: {
