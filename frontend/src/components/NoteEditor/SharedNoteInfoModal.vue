@@ -6,7 +6,7 @@
         <div class="cn-btn-group">
           <div class="shared-link-container">
             <span class="shared-link">{{sharedNoteURL.substr(0, 36)}}</span>
-            <input type="button" class="shared-link-success-title" @click="copySharedLink" value="Copy link"/>
+            <input type="button" class="shared-link-success-title" @click="openSharedLink" value="Open"/>
           </div>
         </div>
         <input type="button" class="cn-btn" value="Close" @click="$store.commit('setSharedModalVisibility');"/>
@@ -20,8 +20,9 @@ export default {
   name: 'SharedNoteInfoModal',
   data: () => ({}),
   methods: {
-    copySharedLink(){
-      window.navigator.clipboard.writeText(this.sharedNoteURL)
+    openSharedLink(){
+      this.$store.commit('setSharedModalVisibility');
+      window.location.replace(this.sharedNoteURL);
     }
   },
   computed: {
