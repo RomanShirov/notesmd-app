@@ -21,7 +21,7 @@ export default () => ({
     synchronizeCache: null,
   },
 
-  serverIpAddr: process.env.VUE_APP_IP || "http://93.157.251.207",
+  serverIpAddr: process.env.VUE_APP_IP || "http://notes.glck.org",
   receivedFolderData: [],
   isSynchronized: null,
   editedNoteCache: '',
