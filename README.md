@@ -29,6 +29,5 @@ cd build/bin &&
 ```
 
 ## Known issues
-* Application may not loading data in Desktop version
 * Can't change note title
 * Active «Share» button on already shared note
