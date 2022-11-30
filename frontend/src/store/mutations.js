@@ -150,8 +150,11 @@ export function authorizeUser(state, payload) {
   const password = payload.password;
   let mode = payload.mode;
 
+  localStorage.removeItem('jwt_token');
+  state.userInformation.jwtToken = null;
+
   axios.post(
-      `${state.serverIpAddr}/api/${mode}?username=${username}&password=${password}`).
+      `${state.serverIpAddr}/${mode}?username=${username}&password=${password}`).
       then((response) => {
         const token = response.data.access_token;
         state.userInformation.jwtToken = token;
