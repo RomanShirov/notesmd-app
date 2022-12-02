@@ -18,21 +18,20 @@ export function setReadOnlyState(state) {
 }
 
 export function setDeletingMode(state) {
-  if(state.applicationState.noteSharingMode){
-    state.applicationState.noteSharingMode = false
+  if (state.applicationState.noteSharingMode) {
+    state.applicationState.noteSharingMode = false;
   }
   state.applicationState.isDeletingMode = !state.applicationState.isDeletingMode;
 
 }
 
 export function updateSharedNoteURL(state, payload) {
-  state.selectedObjectState.sharedNoteURL = payload
+  state.selectedObjectState.sharedNoteURL = payload;
 }
 
-
 export function setNoteSharingMode(state) {
-  if(state.applicationState.isDeletingMode){
-    state.applicationState.isDeletingMode = false
+  if (state.applicationState.isDeletingMode) {
+    state.applicationState.isDeletingMode = false;
   }
   state.applicationState.noteSharingMode = !state.applicationState.noteSharingMode;
 }
@@ -58,6 +57,7 @@ export function setFolder(state, data) {
 }
 
 export function setNotesByFolder(state, data) {
+  state.selectedObjectState.selectedNoteId = null;
   state.selectedObjectState.selectedFolder = data;
   axios.get(`${state.serverIpAddr}/api/notes/${data}`,
       {headers: {Authorization: `Bearer ${state.userInformation.jwtToken}`}}).

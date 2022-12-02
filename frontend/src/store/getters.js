@@ -6,6 +6,10 @@ export const isSynchronized = (state) => {
   return state.isSynchronized;
 };
 
+export const isNoteSelected = (state) => {
+  return state.selectedObjectState.selectedNoteId;
+};
+
 export const selectedFolder = (state) => {
   return state.selectedObjectState.selectedFolder;
 };

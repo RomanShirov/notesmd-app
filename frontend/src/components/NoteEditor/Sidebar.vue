@@ -15,6 +15,10 @@
     <div class="icon" title="Share a note" @click="$store.commit('setNoteSharingMode');">
       <share class="icon" title="Share a note"></share>
     </div>
+    <div v-if="$store.getters['isNoteSelected']" class="icon" title="Save note as .MD file"
+         @click="downloadMarkdown();">
+      <download class="icon"></download>
+    </div>
     <div v-if="isMobile" class="mobile-control">
       <div class="icon" title="Create note" @click="$store.commit('setModalVisibility');">
         <create class="icon"></create>
@@ -37,8 +41,11 @@ import ExitToApp from 'vue-material-design-icons/ExitToApp.vue';
 import Create from 'vue-material-design-icons/FileDocumentEdit.vue';
 import FormatAlignLeft from 'vue-material-design-icons/FormatAlignLeft.vue';
 import Share from 'vue-material-design-icons/Share.vue';
+import Download from 'vue-material-design-icons/Download.vue';
 
 import {isMobileDevice} from '@/utils/mobileChecker';
+import {saveAs} from 'file-saver';
+import {mapState} from 'vuex';
 
 export default {
   name: 'Sidebar',
@@ -51,12 +58,23 @@ export default {
     Create,
     FormatAlignLeft,
     Share,
+    Download,
 
   },
   data() {
     return {};
   },
+  methods: {
+    downloadMarkdown() {
+      const result = this.receivedFolderData.find(
+          note => note.id === this.$store.state.selectedObjectState.selectedNoteId);
+      const blob = new Blob([result.data],
+          {type: 'text/plain;charset=utf-8'});
+      saveAs(blob, `${result.title}.md`);
+    },
+  },
   computed: {
+    ...mapState(['receivedFolderData']),
     isMobile() {
       return isMobileDevice();
     },

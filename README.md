@@ -4,6 +4,7 @@ NotesMD - Open Source and free Markdown editor. Available on web & desktop (unst
 ## Features
 * Markdown notes
 * Folders
+* Saving note as Markdown file
 * Sharing a note by public link
 
 Right now the public server is down, but you can use your own server to host the app. To do this, see the instructions for the [back-end service repository](https://github.com/RomanShirov/notesmd-service).
