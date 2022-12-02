@@ -29,6 +29,5 @@ cd build/bin &&
 ```
 
 ## Known issues
-* Can't create folders with cyrillic names
 * Can't change note title
 * Active «Share» button on already shared note
