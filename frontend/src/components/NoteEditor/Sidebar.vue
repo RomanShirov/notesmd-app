@@ -68,7 +68,8 @@ export default {
     downloadMarkdown() {
       const result = this.receivedFolderData.find(
           note => note.id === this.$store.state.selectedObjectState.selectedNoteId);
-      const blob = new Blob([result.data],
+      const data = result.data || "";
+      const blob = new Blob([data],
           {type: 'text/plain;charset=utf-8'});
       saveAs(blob, `${result.title}.md`);
     },
