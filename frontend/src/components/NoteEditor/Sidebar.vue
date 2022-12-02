@@ -50,7 +50,7 @@ export default {
       const data = result.data || "";
       const blob = new Blob([data],
           {type: 'text/plain;charset=utf-8'});
-      saveAs(blob, `${result.title}.md`);
+      saveAs(blob, `${result.folder} - ${result.title}.md`);
     },
   },
   computed: {
