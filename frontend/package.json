@@ -19,7 +19,6 @@
     "roboto-fontface": "*",
     "vue": "^3.2.13",
     "vue-axios": "^3.5.0",
-    "vue-material-design-icons": "^5.1.2",
     "vue-router": "^4.0.3",
     "vuetify": "^3.0.0-beta.0",
     "vuex": "^4.0.0",

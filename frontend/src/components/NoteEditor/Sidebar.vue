@@ -1,30 +1,30 @@
 <template>
   <div class="sidebar">
-    <div class="icon" title="Log Out">
-      <exit-to-app class="icon" @click="$store.commit('logOut');"></exit-to-app>
+    <div class="icon" title="Log Out" @click="$store.commit('logOut');">
+      <v-icon class="icon">mdi-exit-to-app</v-icon>
     </div>
     <!--    <div class="icon" title="Settings">-->
     <!--      <cog-icon class="icon"></cog-icon>-->
     <!--    </div>-->
-    <div class="icon" title="Toggle Read-only mode">
-      <book-open class="icon" title="Toggle Read-only mode" @click="$store.commit('setReadOnlyState');"></book-open>
+    <div class="icon" title="Toggle Read-only mode" @click="$store.commit('setReadOnlyState');">
+      <v-icon class="icon">mdi-book-open</v-icon>
     </div>
     <div class="icon" title="Enable deleting mode" @click="$store.commit('setDeletingMode');">
-      <delete-sweep class="icon"></delete-sweep>
+      <v-icon class="icon">mdi-delete-sweep</v-icon>
     </div>
     <div class="icon" title="Share a note" @click="$store.commit('setNoteSharingMode');">
-      <share class="icon" title="Share a note"></share>
+      <v-icon class="icon">mdi-share</v-icon>
     </div>
     <div v-if="$store.getters['isNoteSelected']" class="icon" title="Save note as .MD file"
          @click="downloadMarkdown();">
-      <download class="icon"></download>
+      <v-icon class="icon">mdi-download</v-icon>
     </div>
     <div v-if="isMobile" class="mobile-control">
       <div class="icon" title="Create note" @click="$store.commit('setModalVisibility');">
-        <create class="icon"></create>
+        <v-icon class="icon">mdi-pencil</v-icon>
       </div>
       <div class="icon" title="Show notes list" @click="$store.commit('setNoteListVisibility');">
-        <format-align-left class="icon"></format-align-left>
+        <v-icon class="icon">mdi-format-list-bulleted-square</v-icon>
       </div>
     </div>
 
@@ -33,15 +33,6 @@
 </template>
 
 <script>
-import CogIcon from 'vue-material-design-icons/Cog.vue';
-import BookOpen from 'vue-material-design-icons/BookOpen.vue';
-import FolderHome from 'vue-material-design-icons/FolderHome.vue';
-import DeleteSweep from 'vue-material-design-icons/DeleteSweep.vue';
-import ExitToApp from 'vue-material-design-icons/ExitToApp.vue';
-import Create from 'vue-material-design-icons/FileDocumentEdit.vue';
-import FormatAlignLeft from 'vue-material-design-icons/FormatAlignLeft.vue';
-import Share from 'vue-material-design-icons/Share.vue';
-import Download from 'vue-material-design-icons/Download.vue';
 
 import {isMobileDevice} from '@/utils/mobileChecker';
 import {saveAs} from 'file-saver';
@@ -49,18 +40,6 @@ import {mapState} from 'vuex';
 
 export default {
   name: 'Sidebar',
-  components: {
-    CogIcon,
-    BookOpen,
-    FolderHome,
-    DeleteSweep,
-    ExitToApp,
-    Create,
-    FormatAlignLeft,
-    Share,
-    Download,
-
-  },
   data() {
     return {};
   },
