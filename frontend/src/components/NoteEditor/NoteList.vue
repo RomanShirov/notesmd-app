@@ -49,7 +49,7 @@
 
 <script>
 import {mapGetters} from 'vuex';
-import axios from 'axios'
+import axios from 'axios';
 
 export default {
   name: 'NoteList',
@@ -63,6 +63,7 @@ export default {
   methods: {
     updateDisplayInfo(item) {
       this.selectedNoteId = item.id;
+      document.title = `${item.title} - NotesMD`;
       this.$store.commit('setNoteId', this.selectedNoteId);
       this.$store.commit('setNoteListVisibility');
     },
@@ -81,7 +82,7 @@ export default {
       }
     },
     shareNote(item) {
-      axios.put(`${this.$store.state.serverIpAddr}/api/notes/shared/${item.id}`, "",
+      axios.put(`${this.$store.state.serverIpAddr}/api/notes/shared/${item.id}`, '',
           {headers: {Authorization: `Bearer ${this.$store.state.userInformation.jwtToken}`}}).
           then((response) => {
             const sharedURL = response.data.public_url;
